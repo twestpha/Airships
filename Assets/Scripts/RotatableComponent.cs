@@ -5,7 +5,7 @@ using UnityEngine;
 public class RotatableComponent : MonoBehaviour {
 
     public GameObject sprite;
-    private MeshRenderer renderer;
+    private MeshRenderer spriterenderer;
     public Material tex0;
     public Material tex1;
     public Material tex2;
@@ -22,7 +22,7 @@ public class RotatableComponent : MonoBehaviour {
     private Vector3 originalscale;
 
     void Start(){
-        renderer = sprite.GetComponent<MeshRenderer>();
+        spriterenderer = sprite.GetComponent<MeshRenderer>();
         originalscale = sprite.transform.localScale;
     }
 
@@ -46,33 +46,49 @@ public class RotatableComponent : MonoBehaviour {
             sprite.transform.localScale = originalscale;
         }
 
-        // fuck everything lol
+        // I know this is bad... but it works...
         if(angle >= -7.5f && angle < 7.5f){
-            renderer.material = tex0;
+            spriterenderer.material = tex0;
         } else if (angle >= 7.5f && angle < 22.5f){
-            renderer.material = tex1;
+            spriterenderer.material = tex1;
         } else if (angle >= 22.5f && angle < 37.5f){
-            renderer.material = tex2;
+            spriterenderer.material = tex2;
         } else if (angle >= 37.5f && angle < 52.5f){
-            renderer.material = tex3;
+            spriterenderer.material = tex3;
         } else if (angle >= 52.5f && angle < 67.5f){
-            renderer.material = tex4;
+            spriterenderer.material = tex4;
         } else if (angle >= 67.5f && angle < 82.5){
-            renderer.material = tex5;
+            spriterenderer.material = tex5;
         } else if (angle >= 82.5 && angle < 97.5f){
-            renderer.material = tex6;
+            spriterenderer.material = tex6;
         } else if (angle >= 97.5f && angle < 112.5f){
-            renderer.material = tex7;
+            spriterenderer.material = tex7;
         } else if (angle >= 112.5f && angle < 127.5){
-            renderer.material = tex8;
+            spriterenderer.material = tex8;
         } else if (angle >= 127.5 && angle < 142.5){
-            renderer.material = tex9;
+            spriterenderer.material = tex9;
         } else if (angle >= 142.5f && angle < 157.5){
-            renderer.material = tex10;
+            spriterenderer.material = tex10;
         } else if (angle >= 157.5 && angle < 172.5){
-            renderer.material = tex11;
+            spriterenderer.material = tex11;
         } else {
-            renderer.material = tex12;
+            spriterenderer.material = tex12;
         }
+    }
+
+    public void SetSpriteSheet(Material[] newsheet){
+        tex0 = newsheet[0];
+        tex1 = newsheet[1];
+        tex2 = newsheet[2];
+        tex3 = newsheet[3];
+        tex4 = newsheet[4];
+        tex5 = newsheet[5];
+        tex6 = newsheet[6];
+        tex7 = newsheet[7];
+        tex8 = newsheet[8];
+        tex9 = newsheet[9];
+        tex10 = newsheet[10];
+        tex11 = newsheet[11];
+        tex12 = newsheet[12];
     }
 }
