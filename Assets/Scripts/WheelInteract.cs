@@ -39,11 +39,11 @@ public class WheelInteract : MonoBehaviour {
             // TODO notify airship of change of heading
 
             if(state == 0 /* Port */){
-                rotatable.SetSpriteSheet(starboardsheet);
+                rotatable.spriteSheet = starboardsheet;
             } else if(state == 1 /* Fore */){
-                rotatable.SetSpriteSheet(foresheet);
+                rotatable.spriteSheet = foresheet;
             } else if(state == 2 /* Starboard */){
-                rotatable.SetSpriteSheet(portsheet);
+                rotatable.spriteSheet = portsheet;
             }
         }
     }
