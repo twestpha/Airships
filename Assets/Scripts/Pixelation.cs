@@ -17,7 +17,7 @@ using UnityEngine;
      void OnGUI() {
          GUI.depth = 20;
          GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
-         GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), overlay);
+         // GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), overlay);
      }
 
      int NearestSuperiorPowerOf2( int n ) {
