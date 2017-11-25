@@ -18,8 +18,9 @@ public class RotatableComponent : MonoBehaviour {
 
         if(mirror){
             degreesPerSprite = 180.0f / (float) (spriteSheet.Length - 1);
+            //                                   ^ Because of extra sprite at end
         } else {
-            degreesPerSprite = 360.0f / (float) (spriteSheet.Length - 1);
+            degreesPerSprite = 360.0f / (float) (spriteSheet.Length);
         }
     }
 
@@ -42,11 +43,30 @@ public class RotatableComponent : MonoBehaviour {
             sprite.transform.localScale = originalScale;
         }
 
-        int index = 0;
+        if(cross > 0.0f && !mirror){
+            // transform into range (0, 360)
+            angle = 180.0f + (180.0f - angle);
+        }
 
         angle += degreesPerSprite * 0.5f;
-        index = (int)(angle / degreesPerSprite);
 
+        int index = (int)(angle / degreesPerSprite);
+
+        if(index > spriteSheet.Length - 1){
+            index = 0;
+        }
+
+        // Debug.Log(index + " " + angle);
         spriteRenderer.material = spriteSheet[index];
+    }
+
+    void SetSpriteSheet(Material[] newSpriteSheet, bool mirror){
+        spriteSheet = newSpriteSheet;
+
+        if(mirror){
+            degreesPerSprite = 180.0f / (float) (spriteSheet.Length - 1);
+        } else {
+            degreesPerSprite = 360.0f / (float) (spriteSheet.Length);
+        }
     }
 }
