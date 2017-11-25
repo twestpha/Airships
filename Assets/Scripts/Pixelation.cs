@@ -39,7 +39,6 @@ using UnityEngine;
          }
 
          Texture compassNeedle = compassNeedleSprites[index];
-         Debug.Log(compassNeedle);
 
          GUI.DrawTexture(new Rect(-25.0f * texelsToScreenX, -18.0f * texelsToScreenY, compassNeedle.width * texelsToScreenX, compassNeedle.height * texelsToScreenY), compassNeedle);
      }
