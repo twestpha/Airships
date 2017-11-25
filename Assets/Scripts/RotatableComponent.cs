@@ -60,7 +60,7 @@ public class RotatableComponent : MonoBehaviour {
         spriteRenderer.material = spriteSheet[index];
     }
 
-    void SetSpriteSheet(Material[] newSpriteSheet, bool mirror){
+    public void SetSpriteSheet(Material[] newSpriteSheet, bool mirror){
         spriteSheet = newSpriteSheet;
 
         if(mirror){

@@ -36,14 +36,12 @@ public class ThrottleInteract : MonoBehaviour {
         }
 
         if(previousstate != state){
-            // TODO notify airship of change of speed
-
             if(state == 0 /* Stop */){
-                rotatable.spriteSheet = stopsheet;
+                rotatable.SetSpriteSheet(stopsheet, true);
             } else if(state == 1 /* Slow Ahead */){
-                rotatable.spriteSheet = slowsheet;
+                rotatable.SetSpriteSheet(slowsheet, true);
             } else if(state == 2 /* Full Ahead */){
-                rotatable.spriteSheet = fullsheet;
+                rotatable.SetSpriteSheet(fullsheet, true);
             }
         }
     }
