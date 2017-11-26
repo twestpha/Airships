@@ -6,6 +6,9 @@ using UnityEngine;
      public float texelsToScreenX;
      public float texelsToScreenY;
 
+     private GunComponent guncomponent;
+     private Camera fpscamera;
+
      public RenderTexture renderTexture;
      public Texture overlay;
 
@@ -13,12 +16,26 @@ using UnityEngine;
      public Texture[] compassNeedleSprites;
      private float degreesPerSprite;
 
+     public float unscopedFOV;
+     public float scopedFOV;
+     public float scopeTime;
+     public Texture scopeTexture;
+     private Timer scopeTimer;
+     public bool scoped;
+
+     public int offsetX;
+     public int offsetY;
 
      void Start() {
          texelsToScreenX = Screen.width / renderTexture.width;
          texelsToScreenY = Screen.height / renderTexture.height;
 
          degreesPerSprite = 360.0f / (float) (compassNeedleSprites.Length);
+
+         guncomponent = GetComponent<GunComponent>();
+         fpscamera = GetComponent<Camera>();
+
+         scopeTimer = new Timer(scopeTime);
      }
 
      void OnGUI() {
@@ -41,5 +58,25 @@ using UnityEngine;
          Texture compassNeedle = compassNeedleSprites[index];
 
          GUI.DrawTexture(new Rect(-25.0f * texelsToScreenX, -18.0f * texelsToScreenY, compassNeedle.width * texelsToScreenX, compassNeedle.height * texelsToScreenY), compassNeedle);
+
+         // Gun Drawing
+         if(Input.GetMouseButton(1) && guncomponent.CanScope()){
+             if(!scoped){
+                 scoped = true;
+                 scopeTimer.Start();
+             }
+
+             fpscamera.fieldOfView = Mathf.Lerp(unscopedFOV, scopedFOV, scopeTimer.Parameterized());
+             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), scopeTexture);
+         } else {
+             if(scoped){
+                 scoped = false;
+                 scopeTimer.Start();
+             }
+             fpscamera.fieldOfView = Mathf.Lerp(scopedFOV, unscopedFOV, scopeTimer.Parameterized());
+         }
+         // Texture gunSprite = testGunSprites[0]; // probably get this from the gun component
+         //
+         // GUI.DrawTexture(new Rect((float) offsetX * texelsToScreenX, (float) offsetY * texelsToScreenY, 4.0f * gunSprite.width * texelsToScreenX, 4.0f * gunSprite.height * texelsToScreenY), gunSprite);
      }
  }
