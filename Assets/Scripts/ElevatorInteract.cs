@@ -23,8 +23,8 @@ public class ElevatorInteract : MonoBehaviour {
         raiseTimer = new Timer(2.0f);
         waitTimer = new Timer(2.0f);
 
-        pistonRaised = new Vector3(0.0f, 0.0f, -1.0f);
-        pistonLowered = new Vector3(0.0f, 0.0f, 1.0f);
+        pistonRaised = new Vector3(0.0f, 0.0f, 1.0f);
+        pistonLowered = new Vector3(0.0f, 0.0f, -1.0f);
     }
 
     void FixedUpdate(){
