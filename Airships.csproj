@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\ElevatorInteract.cs" />
     <Compile Include="Assets\Scripts\FormationFlight.cs" />
     <Compile Include="Assets\Scripts\GunComponent.cs" />
+    <Compile Include="Assets\Scripts\GunData.cs" />
     <Compile Include="Assets\Scripts\Pixelation.cs" />
     <Compile Include="Assets\Scripts\PlayerPusherComponent.cs" />
     <Compile Include="Assets\Scripts\RotatableComponent.cs" />

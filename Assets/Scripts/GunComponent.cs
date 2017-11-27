@@ -2,31 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-[System.Serializable]
-public class GunData : ScriptableObject {
-    public bool automatic;
-    public bool hasScope;
-    public bool projectile;
-
-    public int damage;
-    public int armorBonus; // can be positive or negative
-    public int currentAmmo;
-    public int magazineAmmo;
-
-    public float fireTime;
-    public float reloadTime;
-    public float maxRange;
-
-    public Texture idleTexture;
-    public Texture fireTexture1;
-    public Texture fireTexture2;
-    public Texture reloadTexture;
-
-    // 16kbps/16000 samples
-    public AudioClip fireSound;
-}
-
 public class GunComponent : MonoBehaviour {
 
     public GunData currentGun;
@@ -60,7 +35,7 @@ public class GunComponent : MonoBehaviour {
     void Start(){
         fireTimer = new Timer();
         reloadTimer = new Timer();
-        animationTimer = new Timer(0.12f);
+        animationTimer = new Timer();
 
         currentGun.currentAmmo = currentGun.magazineAmmo;
         SetCurrentGun(currentGun);
@@ -125,6 +100,8 @@ public class GunComponent : MonoBehaviour {
 
         fireTimer.SetDuration(newgun.fireTime);
         reloadTimer.SetDuration(newgun.reloadTime);
+
+        animationTimer.SetDuration(newgun.fireTime /2.0f);
     }
 
     public bool CanScope(){
