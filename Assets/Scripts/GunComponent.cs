@@ -9,7 +9,8 @@ public class GunComponent : MonoBehaviour {
     private Timer fireTimer;
     private Timer reloadTimer;
 
-    public AudioClip reloadSound;
+    public AudioClip reloadSoundA;
+    public AudioClip reloadSoundB;
     public AudioClip emptyGunSound;
 
     private AudioSource audioSource;
@@ -76,15 +77,18 @@ public class GunComponent : MonoBehaviour {
             }
         }
 
-        if(state != GunState.Reloading && Input.GetKey("r") && currentGun.currentAmmo < currentGun.magazineAmmo){
+        if(state != GunState.Reloading && state != GunState.Firing && Input.GetKey("r") && currentGun.currentAmmo < currentGun.magazineAmmo){
             state = GunState.Reloading;
             reloadTimer.Start();
 
-            audioSource.clip = reloadSound;
+            audioSource.clip = reloadSoundA;
             audioSource.Play();
         } else if(state == GunState.Reloading && reloadTimer.Finished()){
             state = GunState.Idle;
             currentGun.currentAmmo = currentGun.magazineAmmo;
+
+            audioSource.clip = reloadSoundB;
+            audioSource.Play();
         }
 
         if(animstate == AnimationState.Firing && animationTimer.Finished()){

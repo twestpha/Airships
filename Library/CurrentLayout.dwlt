@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 495}
   m_MaxSize: {x: 14004, y: 14045}
   vertical: 0
-  controlID: 9594
+  controlID: 718
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 495}
   m_MaxSize: {x: 10002, y: 14045}
   vertical: 1
-  controlID: 9595
+  controlID: 719
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 9596
+  controlID: 720
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -290,7 +290,7 @@ MonoBehaviour:
     height: 616
   m_MaximizeOnPlay: 1
   m_Gizmos: 0
-  m_Stats: 0
+  m_Stats: 1
   m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_TargetDisplay: 0
   m_ZoomArea:
@@ -366,9 +366,9 @@ MonoBehaviour:
     height: 616
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: dcf9ffff
-    m_LastClickedID: -1572
-    m_ExpandedIDs: dcf9ffffe6fbffff000000007e350000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 34f7ffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -423,9 +423,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 1
   m_Position:
-    m_Target: {x: 0.67504895, y: -0.08849335, z: 12.528875}
+    m_Target: {x: 0.5478039, y: -0.2795248, z: -3.6988182}
     speed: 2
-    m_Value: {x: 0.67504895, y: -0.08849335, z: 12.528875}
+    m_Value: {x: 0.5478039, y: -0.2795248, z: -3.6988182}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -448,13 +448,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.016900491, y: 0.9757965, z: -0.2021994, w: -0.08155286}
+    m_Target: {x: 0.20756619, y: 0.3453901, z: -0.07862492, w: 0.91183335}
     speed: 2
-    m_Value: {x: -0.01690049, y: 0.9757966, z: -0.20219941, w: -0.08155287}
+    m_Value: {x: 0.20756619, y: 0.3453901, z: -0.07862492, w: 0.91183335}
   m_Size:
-    m_Target: 11.193143
+    m_Target: 13.36745
     speed: 2
-    m_Value: 11.193143
+    m_Value: 13.36745
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -571,19 +571,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Standard Assets/Characters/FirstPersonCharacter/Audio
+    - Assets/Resources/Guns
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Standard Assets/Characters/FirstPersonCharacter/Audio
+  - Assets/Resources/Guns
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\Trevor\Code\Airships
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 108}
-    m_SelectedIDs: 80280000
-    m_LastClickedID: 10368
-    m_ExpandedIDs: 000000002a2500006a250000bc250000c8270000aa280000a0290000d4290000862a0000cc2a00003e2b0000842b0000dc2c0000302d0000d62d0000022e0000c4ac0200ffffff7f
+    m_SelectedIDs: ac2b0000
+    m_LastClickedID: 11180
+    m_ExpandedIDs: 000000004225000084250000d82500007428000058290000502a0000842a0000362b0000802b0000f42b0000422c0000a22d00005e2e00009e2e0000ca2e00002e440000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -611,7 +611,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002a2500006a250000bc250000c8270000aa280000a0290000d4290000862a0000cc2a00003e2b0000842b0000dc2c0000302d0000d62d0000022e0000c4ac0200ffffff7f
+    m_ExpandedIDs: 000000004225000084250000d82500007428000058290000502a0000842a0000362b0000802b0000f42b0000422c0000a22d00005e2e00009e2e0000ca2e00002e440000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -690,7 +690,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 729
-    width: 1588
+    width: 1540
     height: 329
 --- !u!114 &19
 MonoBehaviour:
@@ -718,7 +718,7 @@ MonoBehaviour:
     y: 92
     width: 376
     height: 966
-  m_ScrollPosition: {x: 0, y: 79.95508}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: 480

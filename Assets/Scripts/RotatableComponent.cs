@@ -56,7 +56,7 @@ public class RotatableComponent : MonoBehaviour {
             index = 0;
         }
 
-        // Debug.Log(index + " " + angle);
+        Debug.Log(index + " " + angle);
         spriteRenderer.material = spriteSheet[index];
     }
 
