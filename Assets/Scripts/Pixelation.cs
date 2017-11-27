@@ -26,9 +26,11 @@ using UnityEngine;
      public int offsetX;
      public int offsetY;
 
+     public Texture testTexture;
+
      void Start() {
-         texelsToScreenX = Screen.width / renderTexture.width;
-         texelsToScreenY = Screen.height / renderTexture.height;
+         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
+         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
 
          degreesPerSprite = 360.0f / (float) (compassNeedleSprites.Length);
 
@@ -75,8 +77,10 @@ using UnityEngine;
              }
              fpscamera.fieldOfView = Mathf.Lerp(scopedFOV, unscopedFOV, scopeTimer.Parameterized());
          }
-         // Texture gunSprite = testGunSprites[0]; // probably get this from the gun component
-         //
-         // GUI.DrawTexture(new Rect((float) offsetX * texelsToScreenX, (float) offsetY * texelsToScreenY, 4.0f * gunSprite.width * texelsToScreenX, 4.0f * gunSprite.height * texelsToScreenY), gunSprite);
+
+         if(!scoped){
+             Texture gunSprite = guncomponent.GetCurrentGunTexture();
+             GUI.DrawTexture(new Rect(64.0f * texelsToScreenX, 104.0f * texelsToScreenY, gunSprite.width * texelsToScreenX, gunSprite.height * texelsToScreenY), gunSprite);
+         }
      }
  }
