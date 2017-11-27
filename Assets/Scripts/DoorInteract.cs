@@ -18,17 +18,25 @@ public class DoorInteract : MonoBehaviour {
 
     private GameObject player;
 
+    public AudioClip doorSound;
+    private AudioSource source;
+
 	void Start(){
         doorCollider = GetComponent<BoxCollider>();
         sprite1Renderer = sprite1.GetComponent<MeshRenderer>();
         sprite2Renderer = sprite2.GetComponent<MeshRenderer>();
 
         player = GameObject.FindWithTag("Player");
+
+        source = GetComponent<AudioSource>();
 	}
 
 	void Update(){
 
         if((transform.position - player.transform.position).magnitude < 1.5f && (Input.GetKeyDown("e") || Input.GetKeyDown("q"))){
+            source.clip = doorSound;
+            source.Play();
+
             open = !open;
         }
 

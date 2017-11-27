@@ -35,6 +35,7 @@ public class GunComponent : MonoBehaviour {
     private Timer reloadTimer;
 
     public AudioClip reloadSound;
+    public AudioClip emptyGunSound;
 
     private AudioSource audioSource;
 
@@ -80,6 +81,11 @@ public class GunComponent : MonoBehaviour {
                 animationTimer.Start();
 
                 currentGun.currentAmmo--;
+            }
+
+            if(Input.GetMouseButtonDown(0) && currentGun.currentAmmo == 0 && !audioSource.isPlaying){
+                audioSource.clip = emptyGunSound;
+                audioSource.Play();
             }
         } else if(state == GunState.Firing){
             if(fireTimer.Finished()){

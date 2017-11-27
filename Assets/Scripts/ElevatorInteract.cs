@@ -6,6 +6,9 @@ public class ElevatorInteract : MonoBehaviour {
 
     public GameObject pistonDriver;
 
+    public AudioClip elevatorSound;
+    private AudioSource source;
+
     public enum ElevatorState {
         Idle,
         Raising,
@@ -33,11 +36,16 @@ public class ElevatorInteract : MonoBehaviour {
         pistonLowered = new Vector3(0.0f, 0.0f, -1.0f);
 
         player = GameObject.FindWithTag("Player");
+
+        source = GetComponent<AudioSource>();
     }
 
     void FixedUpdate(){
         if(state == ElevatorState.Idle){
             if((transform.position - player.transform.position).magnitude < 1.5f && (Input.GetKeyDown("e") || Input.GetKeyDown("q"))){
+                source.clip = elevatorSound;
+                source.Play();
+
                 state = ElevatorState.Raising;
                 controls.GetComponent<MeshRenderer>().material = activeTexture;
                 raiseTimer.Start();
@@ -51,6 +59,9 @@ public class ElevatorInteract : MonoBehaviour {
             }
         } else if(state == ElevatorState.Waiting){
             if(waitTimer.Finished()){
+                source.clip = elevatorSound;
+                source.Play();
+                
                 state = ElevatorState.Lowering;
                 raiseTimer.Start();
             }
