@@ -6,6 +6,9 @@ public class GunComponent : MonoBehaviour {
 
     public GunData currentGun;
 
+    public GunData gunSlot1;
+    public GunData gunSlot2;
+
     private Timer fireTimer;
     private Timer reloadTimer;
 
@@ -40,13 +43,21 @@ public class GunComponent : MonoBehaviour {
         reloadTimer = new Timer();
         animationTimer = new Timer();
 
-        currentGun.currentAmmo = currentGun.magazineAmmo;
+        gunSlot1.currentAmmo = gunSlot1.magazineAmmo;
+        gunSlot2.currentAmmo = gunSlot2.magazineAmmo;
+
         SetCurrentGun(currentGun);
 
         audioSource = GetComponent<AudioSource>();
     }
 
     void Update(){
+        if(Input.GetKeyDown("1")){
+            SetCurrentGun(gunSlot1);
+        } else if(Input.GetKeyDown("2")){
+            SetCurrentGun(gunSlot2);
+        }
+
         if(state == GunState.Idle){
             if(Input.GetMouseButton(0) && currentGun.currentAmmo > 0){
                 fireTimer.Start();
@@ -76,7 +87,10 @@ public class GunComponent : MonoBehaviour {
                         GameObject.Instantiate(GenericGunHitSprite).transform.position = Vector3.Lerp(transform.position, hit.point, 0.95f);
                     }
                 } else {
-                    GameObject.Instantiate(currentGun.projectilePrefab).transform.position = transform.position;
+                    GameObject projectile = GameObject.Instantiate(currentGun.projectilePrefab);
+
+                    projectile.transform.position = transform.position;
+                    projectile.transform.rotation = transform.rotation;
                 }
 
                 currentGun.currentAmmo--;
@@ -124,6 +138,9 @@ public class GunComponent : MonoBehaviour {
 
     void SetCurrentGun(GunData newgun){
         currentGun = newgun;
+
+        state = GunState.Idle;
+        animstate = AnimationState.Idle;
 
         fireTimer.SetDuration(newgun.fireTime);
         reloadTimer.SetDuration(newgun.reloadTime);
