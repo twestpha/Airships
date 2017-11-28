@@ -25,4 +25,6 @@ public class GunData : ScriptableObject {
 
     // 16kbps/16000 samples
     public AudioClip fireSound;
+
+    public GameObject projectilePrefab;
 }

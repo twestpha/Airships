@@ -58,22 +58,25 @@ public class GunComponent : MonoBehaviour {
                 animstate = AnimationState.Firing;
                 animationTimer.Start();
 
-                RaycastHit hit;
-                if(Physics.Raycast(
-                    transform.position,
-                    transform.forward,
-                    out hit,
-                    currentGun.maxRange)
-                ){
-                    DamageableComponent damageable = hit.collider.gameObject.GetComponent<DamageableComponent>();
-                    if(damageable){
-                        damageable.Damage(currentGun.damage, currentGun.armorBonus);
+                if(!currentGun.projectile){
+                    RaycastHit hit;
+                    if(Physics.Raycast(
+                        transform.position,
+                        transform.forward,
+                        out hit,
+                        currentGun.maxRange)
+                    ){
+                        DamageableComponent damageable = hit.collider.gameObject.GetComponent<DamageableComponent>();
+                        if(damageable){
+                            damageable.Damage(currentGun.damage, currentGun.armorBonus);
 
-                        // TODO make a different sprite based on tag of what we hit
+                            // TODO make a different sprite based on tag of what we hit
+                        }
 
+                        GameObject.Instantiate(GenericGunHitSprite).transform.position = Vector3.Lerp(transform.position, hit.point, 0.95f);
                     }
-
-                    GameObject.Instantiate(GenericGunHitSprite).transform.position = Vector3.Lerp(transform.position, hit.point, 0.95f);
+                } else {
+                    GameObject.Instantiate(currentGun.projectilePrefab).transform.position = transform.position;
                 }
 
                 currentGun.currentAmmo--;
