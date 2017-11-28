@@ -52,11 +52,11 @@ public class RotatableComponent : MonoBehaviour {
 
         int index = (int)(angle / degreesPerSprite);
 
-        if(index > spriteSheet.Length - 1){
+        if(index > spriteSheet.Length - 1 || index < 0){
             index = 0;
         }
 
-        Debug.Log(index + " " + angle);
+        // Debug.Log(index + " " + angle);
         spriteRenderer.material = spriteSheet[index];
     }
 

@@ -9,11 +9,11 @@ public class GunData : ScriptableObject {
     public bool hasScope;
     public bool projectile;
 
-    public int damage;
-    public int armorBonus; // can be positive or negative
     public int currentAmmo;
     public int magazineAmmo;
 
+    public float damage;
+    public float armorBonus; // can be positive or negative
     public float fireTime;
     public float reloadTime;
     public float maxRange;
