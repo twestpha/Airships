@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/tst_airship.unity
+- path: Assets/Scenes/tst_multiplayer.unity
   isLoaded: 1
   isActive: 1
