@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class GunComponent : MonoBehaviour {
+public class GunComponent : NetworkBehaviour {
 
     public GunData currentGun;
 
@@ -51,7 +52,7 @@ public class GunComponent : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Update(){
+    /*void Update(){
         if(Input.GetKeyDown("1")){
             SetCurrentGun(gunSlot1);
         } else if(Input.GetKeyDown("2")){
@@ -69,29 +70,7 @@ public class GunComponent : MonoBehaviour {
                 animstate = AnimationState.Firing;
                 animationTimer.Start();
 
-                if(!currentGun.projectile){
-                    RaycastHit hit;
-                    if(Physics.Raycast(
-                        transform.position,
-                        transform.forward,
-                        out hit,
-                        currentGun.maxRange)
-                    ){
-                        DamageableComponent damageable = hit.collider.gameObject.GetComponent<DamageableComponent>();
-                        if(damageable){
-                            damageable.Damage(currentGun.damage, currentGun.armorBonus);
-
-                            // TODO make a different sprite based on tag of what we hit
-                        }
-
-                        GameObject.Instantiate(GenericGunHitSprite).transform.position = Vector3.Lerp(transform.position, hit.point, 0.95f);
-                    }
-                } else {
-                    GameObject projectile = GameObject.Instantiate(currentGun.projectilePrefab);
-
-                    projectile.transform.position = transform.position;
-                    projectile.transform.rotation = transform.rotation;
-                }
+                GetComponent<FPSComponent>().CmdFireGun();
 
                 currentGun.currentAmmo--;
             }
@@ -134,7 +113,7 @@ public class GunComponent : MonoBehaviour {
         } else if(animstate == AnimationState.Cocking && animationTimer.Finished()){
             animstate = AnimationState.Idle;
         }
-    }
+    }*/
 
     void SetCurrentGun(GunData newgun){
         currentGun = newgun;

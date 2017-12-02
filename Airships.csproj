@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\DamageableComponent.cs" />
     <Compile Include="Assets\Scripts\DoorInteract.cs" />
     <Compile Include="Assets\Scripts\ElevatorInteract.cs" />
+    <Compile Include="Assets\Scripts\FPSComponent.cs" />
     <Compile Include="Assets\Scripts\FormationFlight.cs" />
     <Compile Include="Assets\Scripts\GunComponent.cs" />
     <Compile Include="Assets\Scripts\GunData.cs" />

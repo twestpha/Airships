@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class RotatableComponent : MonoBehaviour {
 
@@ -10,9 +11,17 @@ public class RotatableComponent : MonoBehaviour {
 
     private MeshRenderer spriteRenderer;
     private Vector3 originalScale;
-    private float degreesPerSprite;
+    public float degreesPerSprite;
+
+    public GameObject fpsObject;
+    private FPSComponent fpscontroller;
 
     void Start(){
+        fpscontroller = GetComponent<FPSComponent>();
+        if(fpscontroller && fpscontroller.isLocalPlayer){
+            return;
+        }
+
         spriteRenderer = sprite.GetComponent<MeshRenderer>();
         originalScale = sprite.transform.localScale;
 
@@ -25,6 +34,10 @@ public class RotatableComponent : MonoBehaviour {
     }
 
     void Update(){
+        if(fpscontroller && fpscontroller.isLocalPlayer){
+            return;
+        }
+
         Vector3 camerapos = Camera.main.transform.position;
         Vector3 toCamera = camerapos - transform.position;
 

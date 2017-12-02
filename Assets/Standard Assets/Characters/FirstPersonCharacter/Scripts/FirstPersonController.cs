@@ -49,6 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (!isLocalPlayer){
                 cameraChild.GetComponent<Camera>().enabled = false;
+                cameraChild.GetComponent<AudioListener>().enabled = false;
                 return;
             }
 

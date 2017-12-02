@@ -1,10 +1,14 @@
 using UnityEngine;
- using System.Collections;
+using System.Collections;
+using UnityStandardAssets.Characters.FirstPerson;
 
  public class Pixelation : MonoBehaviour {
 
      public float texelsToScreenX;
      public float texelsToScreenY;
+
+     public FPSComponent fpsController;
+     public GameObject gunObject;
 
      private GunComponent guncomponent;
      private Camera fpscamera;
@@ -29,18 +33,29 @@ using UnityEngine;
      public Texture testTexture;
 
      void Start() {
+         fpsController = gunObject.GetComponent<FPSComponent>();
+
+         if (!fpsController.isLocalPlayer){
+             return;
+         }
+
          texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
          texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
 
          degreesPerSprite = 360.0f / (float) (compassNeedleSprites.Length);
 
-         guncomponent = GetComponent<GunComponent>();
+         guncomponent = gunObject.GetComponent<GunComponent>();
+
          fpscamera = GetComponent<Camera>();
 
          scopeTimer = new Timer(scopeTime);
      }
 
      void OnGUI() {
+         if (!fpsController.isLocalPlayer){
+             return;
+         }
+
          GUI.depth = 20;
          GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
          GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), overlay);
