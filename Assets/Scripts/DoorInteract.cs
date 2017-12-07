@@ -32,6 +32,10 @@ public class DoorInteract : MonoBehaviour {
 	}
 
 	void Update(){
+        if(!player){
+            player = GameObject.FindWithTag("Player");
+            return;
+        }
 
         if((transform.position - player.transform.position).magnitude < 1.5f && (Input.GetKeyDown("e") || Input.GetKeyDown("q"))){
             source.clip = doorSound;

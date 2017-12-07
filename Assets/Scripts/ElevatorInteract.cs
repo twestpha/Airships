@@ -41,6 +41,11 @@ public class ElevatorInteract : MonoBehaviour {
     }
 
     void FixedUpdate(){
+        if(!player){
+            player = GameObject.FindWithTag("Player");
+            return;
+        }
+
         if(state == ElevatorState.Idle){
             if((transform.position - player.transform.position).magnitude < 1.5f && (Input.GetKeyDown("e") || Input.GetKeyDown("q"))){
                 source.clip = elevatorSound;
@@ -61,7 +66,7 @@ public class ElevatorInteract : MonoBehaviour {
             if(waitTimer.Finished()){
                 source.clip = elevatorSound;
                 source.Play();
-                
+
                 state = ElevatorState.Lowering;
                 raiseTimer.Start();
             }

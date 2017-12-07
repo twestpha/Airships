@@ -23,6 +23,11 @@ public class ThrottleInteract : MonoBehaviour {
     }
 
     void Update(){
+        if(!player){
+            player = GameObject.FindWithTag("Player");
+            return;
+        }
+        
         int previousstate = state;
 
         if((transform.position - player.transform.position).magnitude < 1.5f){

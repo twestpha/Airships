@@ -84,6 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AirplaneComponent.cs" />
     <Compile Include="Assets\Scripts\AirshipComponent.cs" />
     <Compile Include="Assets\Scripts\BazookaComponent.cs" />
     <Compile Include="Assets\Scripts\BillboardComponent.cs" />

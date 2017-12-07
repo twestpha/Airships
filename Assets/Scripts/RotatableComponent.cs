@@ -16,8 +16,14 @@ public class RotatableComponent : MonoBehaviour {
     public GameObject fpsObject;
     private FPSComponent fpscontroller;
 
+    private GameObject player;
+
     void Start(){
-        fpscontroller = GetComponent<FPSComponent>();
+        player = GameObject.FindWithTag("Player");
+        if(player){
+            fpscontroller = player.GetComponent<FPSComponent>();
+        }
+
         if(fpscontroller && fpscontroller.isLocalPlayer){
             return;
         }
@@ -34,11 +40,15 @@ public class RotatableComponent : MonoBehaviour {
     }
 
     void Update(){
+        if(!player){
+            player = GameObject.FindWithTag("Player");
+        }
+
         if(fpscontroller && fpscontroller.isLocalPlayer){
             return;
         }
 
-        Vector3 camerapos = Camera.main.transform.position;
+        Vector3 camerapos = fpscontroller.cameraChild.transform.position;
         Vector3 toCamera = camerapos - transform.position;
 
         toCamera.y = 0.0f;
