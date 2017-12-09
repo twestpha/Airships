@@ -6,8 +6,6 @@ public class AirplaneComponent : MonoBehaviour {
 
     private Rigidbody body;
 
-    // TODO I actually don't think I want this realistically simulated...
-
     public float maxSpeed;
     public float minSpeed;
     public float throttle;
@@ -26,10 +24,11 @@ public class AirplaneComponent : MonoBehaviour {
     public float rudderForce;
     public float rudderCurrent;
 
-    // public float wingArea;
+    public bool landingGearOut;
 
     [Header("Debug Instruments")]
     public float airspeed;
+    public float altitude;
     public Vector3 velocity;
     private float speed;
     private float acceleration;
@@ -55,6 +54,8 @@ public class AirplaneComponent : MonoBehaviour {
         body = GetComponent<Rigidbody>();
         lineTimer = new Timer(5.0f);
         lineTimer.Start();
+
+        landingGearOut = true;
     }
 
     void FixedUpdate(){
@@ -93,12 +94,35 @@ public class AirplaneComponent : MonoBehaviour {
         elevatorCurrent = Mathf.Clamp(elevatorCurrent, -1.0f, 1.0f);
         rudderCurrent = Mathf.Clamp(rudderCurrent, -1.0f, 1.0f);
 
+        // Landing gear input
+        if(Input.GetKeyDown("g")){
+            landingGearOut = !landingGearOut;
+        }
+
+        // Takeoff and landing
+        float minSpeedWithGear = minSpeed;
+        if(landingGearOut && transform.position.y < 3.0f){
+             minSpeedWithGear = 0.0f;
+             aileronCurrent = 0.0f;
+
+             elevatorCurrent *= throttle;
+             elevatorCurrent = Mathf.Min(0.0f, elevatorCurrent);
+
+             rudderCurrent *= throttle;
+
+             if(transform.position.y < 0.5f){
+                 transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+             }
+        }
+
         // Position calculations
-        speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeed, ref acceleration, 5.0f);
+        speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeedWithGear, ref acceleration, 5.0f);
         velocity = transform.forward * speed;
 
-        airspeed = velocity.magnitude;
+        // Instruments
         transform.position += velocity * Time.deltaTime;
+        airspeed = velocity.magnitude;
+        altitude = transform.position.y;
 
         // Rotation calculations
         float yaw = rudderCurrent * rudderForce * -1.0f;
