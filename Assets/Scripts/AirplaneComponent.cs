@@ -8,7 +8,8 @@ public class AirplaneComponent : MonoBehaviour {
 
     // TODO I actually don't think I want this realistically simulated...
 
-    public float thrust;
+    public float maxSpeed;
+    public float minSpeed;
     public float throttle;
     public float throttleChangeRate;
 
@@ -93,7 +94,7 @@ public class AirplaneComponent : MonoBehaviour {
         rudderCurrent = Mathf.Clamp(rudderCurrent, -1.0f, 1.0f);
 
         // Position calculations
-        speed = Mathf.SmoothDamp(speed, throttle * thrust + 100.0f, ref acceleration, 5.0f);
+        speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeed, ref acceleration, 5.0f);
         velocity = transform.forward * speed;
 
         airspeed = velocity.magnitude;

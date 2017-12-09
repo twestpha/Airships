@@ -98,10 +98,12 @@
     <Compile Include="Assets\Scripts\GunHitEffects.cs" />
     <Compile Include="Assets\Scripts\Pixelation.cs" />
     <Compile Include="Assets\Scripts\PlayerPusherComponent.cs" />
+    <Compile Include="Assets\Scripts\PropellerComponent.cs" />
     <Compile Include="Assets\Scripts\RotatableComponent.cs" />
     <Compile Include="Assets\Scripts\SkyboxComponent.cs" />
     <Compile Include="Assets\Scripts\ThrottleInteract.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\VehicleCameraComponent.cs" />
     <Compile Include="Assets\Scripts\WheelInteract.cs" />
   </ItemGroup>
   <ItemGroup>
