@@ -85,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AirplaneComponent.cs" />
+    <Compile Include="Assets\Scripts\AirplaneGunComponent.cs" />
+    <Compile Include="Assets\Scripts\AirplaneGunData.cs" />
     <Compile Include="Assets\Scripts\AirshipComponent.cs" />
     <Compile Include="Assets\Scripts\BazookaComponent.cs" />
     <Compile Include="Assets\Scripts\BillboardComponent.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Assets\Scripts\PropellerComponent.cs" />
     <Compile Include="Assets\Scripts\RotatableComponent.cs" />
     <Compile Include="Assets\Scripts\SkyboxComponent.cs" />
+    <Compile Include="Assets\Scripts\SplashComponent.cs" />
     <Compile Include="Assets\Scripts\ThrottleInteract.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\VehicleCameraComponent.cs" />

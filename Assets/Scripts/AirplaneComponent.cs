@@ -11,8 +11,6 @@ public class AirplaneComponent : MonoBehaviour {
     public float throttle;
     public float throttleChangeRate;
 
-    public float stabilizationCoeffecient;
-
     public float aileronForce;
     private float aileronCurrent;
     private float aileronTarget;
@@ -41,7 +39,7 @@ public class AirplaneComponent : MonoBehaviour {
     // Feel free to pare these gameplay elements if they don't work out.
     [Header("Optionals")]
     public float engineTemperature;
-    public float fuel;
+    public float engineTemperatureRate;
 
     public int enginesRunning;
     public int enginesMax;
@@ -72,7 +70,7 @@ public class AirplaneComponent : MonoBehaviour {
             throttle -= throttleChangeRate * Time.deltaTime;
         }
 
-        throttle = Mathf.Min(Mathf.Max(0.0f, throttle), 1.2f);
+        throttle = Mathf.Min(Mathf.Max(0.0f, throttle), 1.0f);
 
         // Rudder input
         if(Input.GetKey("q")){
@@ -114,6 +112,10 @@ public class AirplaneComponent : MonoBehaviour {
                  transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
              }
         }
+
+        // Overheating
+        engineTemperature += engineTemperatureRate * (throttle - 0.5f) * Time.deltaTime;
+        engineTemperature = Mathf.Max(0.0f, engineTemperature);
 
         // Position calculations
         speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeedWithGear, ref acceleration, 5.0f);

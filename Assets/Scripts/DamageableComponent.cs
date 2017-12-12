@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Networking;
 
-public class DamageableComponent : NetworkBehaviour {
+public class DamageableComponent : MonoBehaviour {
 
     public const int DamageableLayer = 1 << 8;
 
-    [SyncVar]
     public float health;
     public bool armored;
 
