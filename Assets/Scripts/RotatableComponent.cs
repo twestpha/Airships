@@ -13,20 +13,10 @@ public class RotatableComponent : MonoBehaviour {
     private Vector3 originalScale;
     public float degreesPerSprite;
 
-    public GameObject fpsObject;
-    private FPSComponent fpscontroller;
-
     private GameObject player;
 
     void Start(){
         player = GameObject.FindWithTag("Player");
-        if(player){
-            fpscontroller = player.GetComponent<FPSComponent>();
-        }
-
-        if(fpscontroller && fpscontroller.isLocalPlayer){
-            return;
-        }
 
         spriteRenderer = sprite.GetComponent<MeshRenderer>();
         originalScale = sprite.transform.localScale;
@@ -40,15 +30,7 @@ public class RotatableComponent : MonoBehaviour {
     }
 
     void Update(){
-        if(!player){
-            player = GameObject.FindWithTag("Player");
-        }
-
-        if(fpscontroller && fpscontroller.isLocalPlayer){
-            return;
-        }
-
-        Vector3 camerapos = fpscontroller.cameraChild.transform.position;
+        Vector3 camerapos = player.transform.position;
         Vector3 toCamera = camerapos - transform.position;
 
         toCamera.y = 0.0f;
