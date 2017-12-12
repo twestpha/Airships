@@ -6,19 +6,26 @@ public class AirplaneComponent : MonoBehaviour {
 
     private Rigidbody body;
 
+    [Header("Speed")]
     public float maxSpeed;
     public float minSpeed;
+
+    [Header("Throttle Controls")]
+    public bool throttleEnabled;
     public float throttle;
     public float throttleChangeRate;
 
+    [Header("Aileron Controls")]
     public float aileronForce;
     private float aileronCurrent;
     private float aileronTarget;
     private float aileronVelocity;
 
+    [Header("Elevator Controls")]
     public float elevatorForce;
     private float elevatorCurrent;
 
+    [Header("Rudder Controls")]
     public float rudderForce;
     public float rudderCurrent;
 
@@ -71,6 +78,7 @@ public class AirplaneComponent : MonoBehaviour {
         }
 
         throttle = Mathf.Min(Mathf.Max(0.0f, throttle), 1.0f);
+        throttle = throttleEnabled ? throttle : 0.0f;
 
         // Rudder input
         if(Input.GetKey("q")){

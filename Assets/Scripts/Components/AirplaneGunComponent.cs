@@ -15,6 +15,10 @@ public class AirplaneGunComponent : MonoBehaviour {
     public GameObject playerCameraObject;
     private VehicleCameraComponent airplaneCamera;
 
+    private LevelScriptBase levelScript;
+
+    public int bulletsfired;
+
     void Start(){
         fireTimer = new Timer(currentGun.fireTime);
         overlayTimer = new Timer(0.05f);
@@ -56,9 +60,10 @@ public class AirplaneGunComponent : MonoBehaviour {
             }
 
             currentGun.currentAmmo--;
+            bulletsfired++;
         }
 
-        if(overlayTimer.Finished()){
+        if(overlayTimer.FinishedThisFrame()){
             airplaneCamera.overlay = defaultOverlay;
         }
     }

@@ -84,30 +84,32 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AirplaneComponent.cs" />
-    <Compile Include="Assets\Scripts\AirplaneGunComponent.cs" />
-    <Compile Include="Assets\Scripts\AirplaneGunData.cs" />
-    <Compile Include="Assets\Scripts\AirshipComponent.cs" />
-    <Compile Include="Assets\Scripts\BazookaComponent.cs" />
-    <Compile Include="Assets\Scripts\BillboardComponent.cs" />
-    <Compile Include="Assets\Scripts\DamageableComponent.cs" />
-    <Compile Include="Assets\Scripts\DoorInteract.cs" />
-    <Compile Include="Assets\Scripts\ElevatorInteract.cs" />
-    <Compile Include="Assets\Scripts\FPSComponent.cs" />
-    <Compile Include="Assets\Scripts\FormationFlight.cs" />
-    <Compile Include="Assets\Scripts\GunComponent.cs" />
-    <Compile Include="Assets\Scripts\GunData.cs" />
-    <Compile Include="Assets\Scripts\GunHitEffects.cs" />
-    <Compile Include="Assets\Scripts\Pixelation.cs" />
-    <Compile Include="Assets\Scripts\PlayerPusherComponent.cs" />
-    <Compile Include="Assets\Scripts\PropellerComponent.cs" />
-    <Compile Include="Assets\Scripts\RotatableComponent.cs" />
-    <Compile Include="Assets\Scripts\SkyboxComponent.cs" />
-    <Compile Include="Assets\Scripts\SplashComponent.cs" />
-    <Compile Include="Assets\Scripts\ThrottleInteract.cs" />
-    <Compile Include="Assets\Scripts\Timer.cs" />
-    <Compile Include="Assets\Scripts\VehicleCameraComponent.cs" />
-    <Compile Include="Assets\Scripts\WheelInteract.cs" />
+    <Compile Include="Assets\Scripts\Components\AirplaneComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\AirplaneGunComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\AirshipComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\BazookaComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\BillboardComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\DamageableComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\FPSComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\GunComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\GunHitEffects.cs" />
+    <Compile Include="Assets\Scripts\Components\Pixelation.cs" />
+    <Compile Include="Assets\Scripts\Components\PlayerPusherComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\PropellerComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\RotatableComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\SkyboxComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\SplashComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\VehicleCameraComponent.cs" />
+    <Compile Include="Assets\Scripts\Data\AirplaneGunData.cs" />
+    <Compile Include="Assets\Scripts\Data\GunData.cs" />
+    <Compile Include="Assets\Scripts\Interacts\DoorInteract.cs" />
+    <Compile Include="Assets\Scripts\Interacts\ElevatorInteract.cs" />
+    <Compile Include="Assets\Scripts\Interacts\FormationFlight.cs" />
+    <Compile Include="Assets\Scripts\Interacts\ThrottleInteract.cs" />
+    <Compile Include="Assets\Scripts\Interacts\WheelInteract.cs" />
+    <Compile Include="Assets\Scripts\Levels\LevelScript010.cs" />
+    <Compile Include="Assets\Scripts\Libs\LevelScriptBase.cs" />
+    <Compile Include="Assets\Scripts\Libs\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
