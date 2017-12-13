@@ -14,17 +14,25 @@ public class LevelScriptBase : MonoBehaviour {
     public int command = 0;
     private bool finished = false;
 
-    private GameObject player;
+    protected GameObject player;
+
+    private Timer delayTimer;
+
+    Dictionary<string, float> floatdict;
 
     // #########################################################################
     // Level Stats to track
     // #########################################################################
     public int kills = 0;
     public int deaths = 0;
-    public int bulletsfired = 0;
 
     void Start(){
         player = GameObject.FindWithTag("Player");
+
+        floatdict = new Dictionary<string, float>();
+
+        delayTimer = new Timer();
+        delayTimer.FinishedThisFrame();
 
         functionlist = new List<Func<int>>();
         Progression();
@@ -51,28 +59,94 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
+    // Print - prints out debug information
+    protected void Print(string s){
+        functionlist.Add(new Func<int>(() => {return Print_(s);    }));
+    }
+    protected static int Print_(string s){
+        Debug.Log(s);
+        return NextCmd;
+    }
+
     // Transmission - displays text box and plays audioclip
-    protected void Transmission(string a, string b){
-        functionlist.Add(new Func<int>(() => {return Transmission_(a, b);   }));
+    protected void Transmission(AudioClip clip, bool wait){
+        functionlist.Add(new Func<int>(() => {return Transmission_(clip, wait);   }));
     }
-    protected int Transmission_(string a, string b){
-        Debug.Log(a + b);
+    protected int Transmission_(AudioClip clip, bool wait){
+        AudioSource source = GetComponent<AudioSource>();
+
+        if(!source.isPlaying && source.clip != clip){
+            source.clip = clip;
+            source.Play();
+        }
+
+        return wait && source.isPlaying ? ThisCmd : NextCmd;
+    }
+
+    // EnableAirplaneThrottle - sets the gameobject's airplane component throttle enabled or not
+    protected void EnableAirplaneThrottle(GameObject gameobject, bool enabled){
+        functionlist.Add(new Func<int>(() => {return EnableAirplaneThrottle_(gameobject, enabled);    }));
+    }
+    protected int EnableAirplaneThrottle_(GameObject gameobject, bool enabled){
+        gameobject.GetComponent<AirplaneComponent>().throttleEnabled = enabled;
         return NextCmd;
     }
 
-    // EnablePlayerThrottle - sets the player throttle enabled or not
-    protected void EnablePlayerThrottle(bool enabled){
-        functionlist.Add(new Func<int>(() => {return EnablePlayerThrottle_(enabled);    }));
+    // EnableAirplaneGuns - sets the gameobject's airplane gun component gunsenabled enabled or not
+    protected void EnableAirplaneGuns(GameObject gameobject, bool enabled){
+        functionlist.Add(new Func<int>(() => {return EnableAirplaneGuns_(gameobject, enabled);    }));
     }
-    protected int EnablePlayerThrottle_(bool enabled){
-        player.GetComponent<AirplaneComponent>().throttleEnabled = enabled;
+    protected int EnableAirplaneGuns_(GameObject gameobject, bool enabled){
+        gameobject.GetComponent<AirplaneGunComponent>().gunsEnabled = enabled;
         return NextCmd;
     }
 
+    // #########################################################################
+    // Variable Methods
+    // #########################################################################
+    protected void SetVarToGameTime(string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToGameTime_(varname);    }));
+    }
+    protected int SetVarToGameTime_(string varname){
+        floatdict[varname] = Time.time;
+        return NextCmd;
+    }
+
+    protected void SetVarToThrottle(GameObject gameobject, string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToThrottle_(gameobject, varname);    }));
+    }
+    protected int SetVarToThrottle_(GameObject gameobject, string varname){
+        floatdict[varname] = gameobject.GetComponent<AirplaneComponent>().throttle;
+        return NextCmd;
+    }
+
+    protected void SetVarToAirspeed(GameObject gameobject, string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToAirspeed_(gameobject, varname);    }));
+    }
+    protected int SetVarToAirspeed_(GameObject gameobject, string varname){
+        floatdict[varname] = gameobject.GetComponent<AirplaneComponent>().airspeed;
+        return NextCmd;
+    }
 
     // #########################################################################
     // Delay Methods
     // #########################################################################
+
+    // Delay - waits for a duration of time
+    protected void Delay(float time){
+        functionlist.Add(new Func<int>(() => {return Delay_(time);    }));
+    }
+    protected int Delay_(float time){
+        if(delayTimer.FinishedThisFrame()){
+            return NextCmd;
+        } else if(delayTimer.Finished()){
+            delayTimer.SetDuration(time);
+            delayTimer.Start();
+        }
+
+        return ThisCmd;
+    }
+
     protected void WaitForGameTime(float gt){
         functionlist.Add(new Func<int>(() => {return WaitForGameTime_(gt);  }));
     }
@@ -81,44 +155,62 @@ public class LevelScriptBase : MonoBehaviour {
     }
 
     // Int methods
-    protected static int WaitEquals(int a, int b){
-        return a == b ? NextCmd : PrevCmd;
+    protected void WaitEquals(int a, int b){
+        functionlist.Add(new Func<int>(() => {return a == b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitGreaterThan(int a, int b){
-        return a > b ? NextCmd : PrevCmd;
+    protected void WaitNotEquals(int a, int b){
+        functionlist.Add(new Func<int>(() => {return a != b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitLessThan(int a, int b){
-        return WaitGreaterThan(b, a);
+    protected void WaitGreaterThan(int a, int b){
+        functionlist.Add(new Func<int>(() => {return a > b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitGreaterThanEqual(int a, int b){
-        return a >= b ? NextCmd : PrevCmd;
+    protected void WaitLessThan(int a, int b){
+        functionlist.Add(new Func<int>(() => {return a < b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitLessThanEqual(int a, int b){
-        return WaitGreaterThan(b, a);
+    protected void WaitGreaterThanEqual(int a, int b){
+        functionlist.Add(new Func<int>(() => {return a >= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitLessThanEqual(int a, int b){
+        functionlist.Add(new Func<int>(() => {return a <= b ? NextCmd : PrevCmd;  }));
     }
 
     // Float methods
-    protected static int WaitEquals(float a, float b){
-        return a == b ? NextCmd : PrevCmd;
+    protected void WaitEquals(float a, float b){
+        functionlist.Add(new Func<int>(() => {return a == b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitNotEquals(float a, float b){
+        functionlist.Add(new Func<int>(() => {return a != b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitGreaterThan(float a, float b){
+        functionlist.Add(new Func<int>(() => {return a > b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitLessThan(float a, float b){
+        functionlist.Add(new Func<int>(() => {return a < b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitGreaterThanEqual(float a, float b){
+        functionlist.Add(new Func<int>(() => {return a >= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitLessThanEqual(float a, float b){
+        functionlist.Add(new Func<int>(() => {return a <= b ? NextCmd : PrevCmd;  }));
     }
 
-    protected static int WaitGreaterThan(float a, float b){
-        return a > b ? NextCmd : PrevCmd;
+    // Float variable methods
+    protected void WaitEquals(string varname, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] == b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitLessThan(float a, float b){
-        return WaitGreaterThan(b, a);
+    protected void WaitNotEquals(string varname, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] != b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitGreaterThanEqual(float a, float b){
-        return a >= b ? NextCmd : PrevCmd;
+    protected void WaitGreaterThan(string varname, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] > b ? NextCmd : PrevCmd;  }));
     }
-
-    protected static int WaitLessThanEqual(float a, float b){
-        return WaitGreaterThan(b, a);
+    protected void WaitLessThan(string varname, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] < b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitGreaterThanEqual(string varname, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] >= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitLessThanEqual(string varname, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] <= b ? NextCmd : PrevCmd;  }));
     }
 }

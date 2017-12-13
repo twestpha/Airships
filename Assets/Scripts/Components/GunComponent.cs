@@ -49,7 +49,7 @@ public class GunComponent : NetworkBehaviour {
 
         SetCurrentGun(currentGun);
 
-        audioSource = GetComponent<AudioSource>();
+        // audioSource = GetComponent<AudioSource>();
     }
 
     /*void Update(){

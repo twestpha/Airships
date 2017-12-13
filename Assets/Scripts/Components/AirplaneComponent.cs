@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AirplaneComponent : MonoBehaviour {
 
-    private Rigidbody body;
-
     [Header("Speed")]
     public float maxSpeed;
     public float minSpeed;
@@ -31,7 +29,7 @@ public class AirplaneComponent : MonoBehaviour {
 
     public bool landingGearOut;
 
-    [Header("Debug Instruments")]
+    [Header("Instruments")]
     public float airspeed;
     public float altitude;
     public Vector3 velocity;
@@ -56,7 +54,6 @@ public class AirplaneComponent : MonoBehaviour {
     private Vector3 prevPosition;
 
     void Start(){
-        body = GetComponent<Rigidbody>();
         lineTimer = new Timer(5.0f);
         lineTimer.Start();
 
@@ -78,7 +75,6 @@ public class AirplaneComponent : MonoBehaviour {
         }
 
         throttle = Mathf.Min(Mathf.Max(0.0f, throttle), 1.0f);
-        throttle = throttleEnabled ? throttle : 0.0f;
 
         // Rudder input
         if(Input.GetKey("q")){
@@ -126,8 +122,10 @@ public class AirplaneComponent : MonoBehaviour {
         engineTemperature = Mathf.Max(0.0f, engineTemperature);
 
         // Position calculations
-        speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeedWithGear, ref acceleration, 5.0f);
-        velocity = transform.forward * speed;
+        if(throttleEnabled){
+            speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeedWithGear, ref acceleration, 5.0f);
+            velocity = transform.forward * speed;
+        }
 
         // Instruments
         transform.position += velocity * Time.deltaTime;

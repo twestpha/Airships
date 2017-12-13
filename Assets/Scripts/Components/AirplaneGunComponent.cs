@@ -17,6 +17,7 @@ public class AirplaneGunComponent : MonoBehaviour {
 
     private LevelScriptBase levelScript;
 
+    public bool gunsEnabled = true;
     public int bulletsfired;
 
     void Start(){
@@ -32,7 +33,7 @@ public class AirplaneGunComponent : MonoBehaviour {
     }
 
     void Update(){
-        if(((Input.GetMouseButton(0) && currentGun.automatic) || Input.GetMouseButtonDown(0)) && fireTimer.Finished() && currentGun.currentAmmo > 0){
+        if(gunsEnabled && ((Input.GetMouseButton(0) && currentGun.automatic) || Input.GetMouseButtonDown(0)) && fireTimer.Finished() && currentGun.currentAmmo > 0){
             overlayTimer.Start();
             fireTimer.Start();
 
