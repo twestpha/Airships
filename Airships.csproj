@@ -87,8 +87,9 @@
     <Compile Include="Assets\Scripts\Components\AirplaneComponent.cs" />
     <Compile Include="Assets\Scripts\Components\AirplaneGunComponent.cs" />
     <Compile Include="Assets\Scripts\Components\AirshipComponent.cs" />
-    <Compile Include="Assets\Scripts\Components\BazookaComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\BalloonComponent.cs" />
     <Compile Include="Assets\Scripts\Components\BillboardComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\BulletComponent.cs" />
     <Compile Include="Assets\Scripts\Components\DamageableComponent.cs" />
     <Compile Include="Assets\Scripts\Components\FPSComponent.cs" />
     <Compile Include="Assets\Scripts\Components\GunComponent.cs" />

@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BazookaComponent : MonoBehaviour {
+public class BulletComponent : MonoBehaviour {
 
     public float speed;
     private Vector3 startPoint;
+
+    public float damage;
+    public float armorBonus;
 
     public GameObject groundSplash;
     public GameObject waterSplash;
 
     private const int WaterLayer = 4;
+    private const int DamagableLayer = 8;
     private const int GroundLayer = 10;
 
     private const float DespawnRange = 800.0f;
@@ -28,7 +32,10 @@ public class BazookaComponent : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision other){
-        if(other.gameObject.layer == WaterLayer && groundSplash){
+        if(other.gameObject.layer == DamagableLayer){
+            // TODO add generic hit marker splash
+            other.gameObject.GetComponent<DamageableComponent>().Damage(damage, armorBonus);
+        } else if(other.gameObject.layer == WaterLayer && groundSplash){
             Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
         } else if(other.gameObject.layer == GroundLayer && waterSplash){
             Object.Instantiate(waterSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());

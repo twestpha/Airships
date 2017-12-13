@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 public class DamageableComponent : MonoBehaviour {
 
     public const int DamageableLayer = 1 << 8;
+    public const int DamagingLayer = 1 << 10;
 
     public float health;
     public bool armored;
@@ -29,7 +30,7 @@ public class DamageableComponent : MonoBehaviour {
 
         Debug.Log("HIT FOR " + damage + " DAMAGE!");
 
-        if(destroyedMaterial && health < 0.0f){
+        if(destroyedMaterial && health <= 0.0f){
             GetComponent<MeshRenderer>().material = destroyedMaterial;
         }
     }

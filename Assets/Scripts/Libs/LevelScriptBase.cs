@@ -23,7 +23,10 @@ public class LevelScriptBase : MonoBehaviour {
     // #########################################################################
     // Level Stats to track
     // #########################################################################
-    public int kills = 0;
+    [Header("Level Stats")]
+    public int balloonkills = 0;
+    public int interceptorkills = 0;
+    public int bomberkills = 0;
     public int deaths = 0;
 
     void Start(){
