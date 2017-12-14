@@ -19,6 +19,7 @@ public class LevelScriptBase : MonoBehaviour {
     private Timer delayTimer;
 
     Dictionary<string, float> floatdict;
+    Dictionary<string, int> intdict;
 
     // #########################################################################
     // Level Stats to track
@@ -33,6 +34,7 @@ public class LevelScriptBase : MonoBehaviour {
         player = GameObject.FindWithTag("Player");
 
         floatdict = new Dictionary<string, float>();
+        intdict = new Dictionary<string, int>();
 
         delayTimer = new Timer();
         delayTimer.FinishedThisFrame();
@@ -71,7 +73,7 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
-    // Transmission - displays text box and plays audioclip
+    // Transmission - plays audioclip
     protected void Transmission(AudioClip clip, bool wait){
         functionlist.Add(new Func<int>(() => {return Transmission_(clip, wait);   }));
     }
@@ -84,6 +86,15 @@ public class LevelScriptBase : MonoBehaviour {
         }
 
         return wait && source.isPlaying ? ThisCmd : NextCmd;
+    }
+
+    // CreateObjectAtPosition - creates a given gameobject at position
+    protected void CreateObjectAtPosition(GameObject gameobject, Vector3 position){
+        functionlist.Add(new Func<int>(() => {return CreateObjectAtPosition_(gameobject, position);   }));
+    }
+    protected int CreateObjectAtPosition_(GameObject gameobject, Vector3 position){
+        GameObject.Instantiate(gameobject, position, new Quaternion());
+        return NextCmd;
     }
 
     // EnableAirplaneThrottle - sets the gameobject's airplane component throttle enabled or not
@@ -131,6 +142,14 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
+    protected void SetVarToBalloonKills(string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToBalloonKills_(varname);    }));
+    }
+    protected int SetVarToBalloonKills_(string varname){
+        intdict[varname] = balloonkills;
+        return NextCmd;
+    }
+
     // #########################################################################
     // Delay Methods
     // #########################################################################
@@ -175,6 +194,26 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected void WaitLessThanEqual(int a, int b){
         functionlist.Add(new Func<int>(() => {return a <= b ? NextCmd : PrevCmd;  }));
+    }
+
+    // Int variable methods
+    protected void WaitEquals(string varname, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] == b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitNotEquals(string varname, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] != b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitGreaterThan(string varname, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] > b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitLessThan(string varname, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] < b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitGreaterThanEqual(string varname, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] >= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitLessThanEqual(string varname, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] <= b ? NextCmd : PrevCmd;  }));
     }
 
     // Float methods

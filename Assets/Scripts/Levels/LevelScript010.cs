@@ -30,7 +30,15 @@ public class LevelScript010 : LevelScriptBase {
     public AudioClip tower_allclear;
     public AudioClip captain_landing;
 
+    [Header("GameObject Prefabs")]
+    public GameObject balloonPrefab;
+
     protected override void Progression(){
+
+        // fullscreen ui briefing
+
+        // fade in
+
         EnableAirplaneThrottle(player, false);
         EnableAirplaneGuns(player, false);
         Delay(3.0f);
@@ -43,6 +51,7 @@ public class LevelScript010 : LevelScriptBase {
         SetVarToThrottle(player, "throttle");
         WaitGreaterThan("throttle", 0.8f);
 
+        Delay(0.3f);
         Transmission(tower_allgreen, true);
         Delay(0.5f);
         EnableAirplaneThrottle(player, true);
@@ -63,7 +72,19 @@ public class LevelScript010 : LevelScriptBase {
         // wait for heading south
 
         Transmission(captain_headsouth, true);
-        Delay(5.3f);
+
+        CreateObjectAtPosition(balloonPrefab, new Vector3(-834.0f, 0.0f, 162.0f));
+        Delay(0.6f);
+        CreateObjectAtPosition(balloonPrefab, new Vector3(-721.0f, 0.0f, 9.0f));
+        Delay(0.3f);
+        CreateObjectAtPosition(balloonPrefab, new Vector3(-866.0f, 0.0f, -45.0f));
+        CreateObjectAtPosition(balloonPrefab, new Vector3(-1066.0f, 0.0f, 125.0f));
+        Delay(0.8f);
+        CreateObjectAtPosition(balloonPrefab, new Vector3(-1012.0f, 0.0f, -111.0f));
+        Delay(0.7f);
+        CreateObjectAtPosition(balloonPrefab, new Vector3(-735.0f, 0.0f, -55.0f));
+        Delay(2.3f);
+
         Transmission(tower_interjection, true);
         Delay(1.2f);
         Transmission(tower_barrageballoons, true);
@@ -71,8 +92,10 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(tower_headeast, true);
 
-        // wait for balloons destroyed
+        SetVarToBalloonKills("balloonkills");
+        WaitEquals("balloonkills", 6);
 
+        Delay(1.3f);
         Transmission(captain_ballons, true);
         Delay(0.8f);
         Transmission(tower_nice, true);

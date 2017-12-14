@@ -32,6 +32,7 @@ public class AirplaneComponent : MonoBehaviour {
     [Header("Instruments")]
     public float airspeed;
     public float altitude;
+    public float heading;
     public Vector3 velocity;
     private float speed;
     private float acceleration;
@@ -123,7 +124,7 @@ public class AirplaneComponent : MonoBehaviour {
 
         // Position calculations
         if(throttleEnabled){
-            speed = Mathf.SmoothDamp(speed, throttle * maxSpeed + minSpeedWithGear, ref acceleration, 5.0f);
+            speed = Mathf.SmoothDamp(speed, (throttle * maxSpeed) + minSpeedWithGear, ref acceleration, 5.0f);
             velocity = transform.forward * speed;
         }
 
@@ -131,6 +132,7 @@ public class AirplaneComponent : MonoBehaviour {
         transform.position += velocity * Time.deltaTime;
         airspeed = velocity.magnitude;
         altitude = transform.position.y;
+        heading = transform.rotation.eulerAngles.y;
 
         // Rotation calculations
         float yaw = rudderCurrent * rudderForce * -1.0f;
