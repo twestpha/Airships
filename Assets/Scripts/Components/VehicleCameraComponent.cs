@@ -12,6 +12,10 @@ public class VehicleCameraComponent : MonoBehaviour {
     public RenderTexture renderTexture;
     public Texture overlay;
 
+    public Texture briefingScreen;
+
+    public bool briefingMode = false;
+
     void Start() {
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
@@ -21,7 +25,12 @@ public class VehicleCameraComponent : MonoBehaviour {
 
     void OnGUI() {
         GUI.depth = 20;
-        GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
-        GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), overlay);
+
+        if(briefingMode){
+            GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), briefingScreen);
+        } else {
+            GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
+            GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), overlay);
+        }
     }
 }

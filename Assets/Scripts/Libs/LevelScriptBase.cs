@@ -150,6 +150,14 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
+    protected void SetVarToHeading(GameObject gameobject, string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToHeading_(gameobject, varname);    }));
+    }
+    protected int SetVarToHeading_(GameObject gameobject, string varname){
+        floatdict[varname] = gameobject.GetComponent<AirplaneComponent>().heading;
+        return NextCmd;
+    }
+
     // #########################################################################
     // Delay Methods
     // #########################################################################
@@ -195,6 +203,12 @@ public class LevelScriptBase : MonoBehaviour {
     protected void WaitLessThanEqual(int a, int b){
         functionlist.Add(new Func<int>(() => {return a <= b ? NextCmd : PrevCmd;  }));
     }
+    protected void WaitInRange(int x, int a, int b){
+        functionlist.Add(new Func<int>(() => {return a <= x && x <= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitOutOfRange(int x, int a, int b){
+        functionlist.Add(new Func<int>(() => {return x <= a && b <= x ? NextCmd : PrevCmd;  }));
+    }
 
     // Int variable methods
     protected void WaitEquals(string varname, int b){
@@ -214,6 +228,12 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected void WaitLessThanEqual(string varname, int b){
         functionlist.Add(new Func<int>(() => {return intdict[varname] <= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitInRange(string varname, int a, int b){
+        functionlist.Add(new Func<int>(() => {return a <= intdict[varname] && intdict[varname] <= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitOutOfRange(string varname, int a, int b){
+        functionlist.Add(new Func<int>(() => {return intdict[varname] <= a && b <= intdict[varname] ? NextCmd : PrevCmd;  }));
     }
 
     // Float methods
@@ -235,6 +255,12 @@ public class LevelScriptBase : MonoBehaviour {
     protected void WaitLessThanEqual(float a, float b){
         functionlist.Add(new Func<int>(() => {return a <= b ? NextCmd : PrevCmd;  }));
     }
+    protected void WaitInRange(float x, float a, float b){
+        functionlist.Add(new Func<int>(() => {return a <= x && x <= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitOutOfRange(float x, float a, float b){
+        functionlist.Add(new Func<int>(() => {return x <= a && b <= x ? NextCmd : PrevCmd;  }));
+    }
 
     // Float variable methods
     protected void WaitEquals(string varname, float b){
@@ -254,5 +280,11 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected void WaitLessThanEqual(string varname, float b){
         functionlist.Add(new Func<int>(() => {return floatdict[varname] <= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitInRange(string varname, float a, float b){
+        functionlist.Add(new Func<int>(() => {return a <= floatdict[varname] && floatdict[varname] <= b ? NextCmd : PrevCmd;  }));
+    }
+    protected void WaitOutOfRange(string varname, float a, float b){
+        functionlist.Add(new Func<int>(() => {return floatdict[varname] <= a && b <= floatdict[varname] ? NextCmd : PrevCmd;  }));
     }
 }

@@ -70,8 +70,10 @@ public class LevelScript010 : LevelScriptBase {
         Delay(1.3f);
         Transmission(tower_headsouth, true);
 
-        // wait for heading south
+        SetVarToHeading(player, "heading");
+        WaitInRange("heading", 135.0f, 225.0f); // South
 
+        Delay(0.6f);
         Transmission(captain_headsouth, true);
 
         CreateObjectAtPosition(balloonPrefab, new Vector3(-834.0f, 0.0f, 162.0f));
@@ -84,7 +86,6 @@ public class LevelScript010 : LevelScriptBase {
         CreateObjectAtPosition(balloonPrefab, new Vector3(-1012.0f, 0.0f, -111.0f));
         Delay(0.7f);
         CreateObjectAtPosition(balloonPrefab, new Vector3(-735.0f, 0.0f, -55.0f));
-        Delay(2.3f);
 
         Transmission(tower_interjection, true);
         Delay(1.2f);
@@ -112,7 +113,8 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(bogey_intro2, true);
 
-        // wait for heading west
+        SetVarToHeading(player, "heading");
+        WaitInRange("heading", 45.0f, 315.0f); // East
 
         Delay(0.8f);
         Transmission(tower_openfire, true);
