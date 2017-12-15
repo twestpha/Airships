@@ -25,6 +25,7 @@ public class LevelScript010 : LevelScriptBase {
     public AudioClip tower_warning;
     public AudioClip tower_headwest;
     public AudioClip tower_warning2;
+    public AudioClip bogey_intro2;
     public AudioClip tower_openfire;
     public AudioClip captain_confirmkill;
     public AudioClip tower_allclear;
@@ -88,9 +89,9 @@ public class LevelScript010 : LevelScriptBase {
         Transmission(tower_interjection, true);
         Delay(1.2f);
         Transmission(tower_barrageballoons, true);
-        EnableAirplaneGuns(player, true);
         Delay(0.7f);
         Transmission(tower_headeast, true);
+        EnableAirplaneGuns(player, true);
 
         SetVarToBalloonKills("balloonkills");
         WaitEquals("balloonkills", 6);
@@ -108,13 +109,17 @@ public class LevelScript010 : LevelScriptBase {
         Transmission(tower_headwest, true);
         Delay(0.1f);
         Transmission(tower_warning2, true);
+        Delay(0.7f);
+        Transmission(bogey_intro2, true);
 
         // wait for heading west
 
+        Delay(0.8f);
         Transmission(tower_openfire, true);
 
         // wait for interceptors destroyed
 
+        Delay(0.4f);
         Transmission(captain_confirmkill, true);
         Delay(0.4f);
         Transmission(tower_allclear, true);
