@@ -185,10 +185,10 @@ public class LevelScriptBase : MonoBehaviour {
     }
 
     // Int methods
-    protected void WaitEquals(int a, int b){
+    protected void WaitEqual(int a, int b){
         functionlist.Add(new Func<int>(() => {return a == b ? NextCmd : PrevCmd;  }));
     }
-    protected void WaitNotEquals(int a, int b){
+    protected void WaitNotEqual(int a, int b){
         functionlist.Add(new Func<int>(() => {return a != b ? NextCmd : PrevCmd;  }));
     }
     protected void WaitGreaterThan(int a, int b){
@@ -211,10 +211,10 @@ public class LevelScriptBase : MonoBehaviour {
     }
 
     // Int variable methods
-    protected void WaitEquals(string varname, int b){
+    protected void WaitEqual(string varname, int b){
         functionlist.Add(new Func<int>(() => {return intdict[varname] == b ? NextCmd : PrevCmd;  }));
     }
-    protected void WaitNotEquals(string varname, int b){
+    protected void WaitNotEqual(string varname, int b){
         functionlist.Add(new Func<int>(() => {return intdict[varname] != b ? NextCmd : PrevCmd;  }));
     }
     protected void WaitGreaterThan(string varname, int b){
@@ -237,10 +237,10 @@ public class LevelScriptBase : MonoBehaviour {
     }
 
     // Float methods
-    protected void WaitEquals(float a, float b){
+    protected void WaitEqual(float a, float b){
         functionlist.Add(new Func<int>(() => {return a == b ? NextCmd : PrevCmd;  }));
     }
-    protected void WaitNotEquals(float a, float b){
+    protected void WaitNotEqual(float a, float b){
         functionlist.Add(new Func<int>(() => {return a != b ? NextCmd : PrevCmd;  }));
     }
     protected void WaitGreaterThan(float a, float b){
@@ -263,10 +263,10 @@ public class LevelScriptBase : MonoBehaviour {
     }
 
     // Float variable methods
-    protected void WaitEquals(string varname, float b){
+    protected void WaitEqual(string varname, float b){
         functionlist.Add(new Func<int>(() => {return floatdict[varname] == b ? NextCmd : PrevCmd;  }));
     }
-    protected void WaitNotEquals(string varname, float b){
+    protected void WaitNotEqual(string varname, float b){
         functionlist.Add(new Func<int>(() => {return floatdict[varname] != b ? NextCmd : PrevCmd;  }));
     }
     protected void WaitGreaterThan(string varname, float b){

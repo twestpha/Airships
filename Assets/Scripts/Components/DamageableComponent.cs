@@ -28,7 +28,7 @@ public class DamageableComponent : MonoBehaviour {
             health -= damage;
         }
 
-        Debug.Log("HIT FOR " + damage + " DAMAGE!");
+        // Debug.Log("HIT FOR " + damage + " DAMAGE!");
 
         if(destroyedMaterial && health <= 0.0f){
             GetComponent<MeshRenderer>().material = destroyedMaterial;
