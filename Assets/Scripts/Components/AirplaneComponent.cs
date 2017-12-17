@@ -50,11 +50,18 @@ public class AirplaneComponent : MonoBehaviour {
     public int enginesRunning;
     public int enginesMax;
 
+    [Header("Sound Effects")]
+    public AudioSource source;
+    public AudioClip engineSound;
+
     // Temporary line-drawing vars so I can see the plane's flight path
     private Timer lineTimer;
     private Vector3 prevPosition;
 
     void Start(){
+        source.clip = engineSound;
+        source.Play();
+
         lineTimer = new Timer(5.0f);
         lineTimer.Start();
 
@@ -142,5 +149,9 @@ public class AirplaneComponent : MonoBehaviour {
         eulerAngles *= Time.deltaTime;
 
         transform.rotation *= Quaternion.Euler(eulerAngles);
+
+        // throttle Sound
+        source.volume = 0.5f + (throttle / 2.0f);
+        source.pitch = 0.5f + (throttle / 2.0f);
     }
 }

@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Components\AirplaneComponent.cs" />
     <Compile Include="Assets\Scripts\Components\AirplaneGunComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\AirplaneShadowComponent.cs" />
     <Compile Include="Assets\Scripts\Components\AirshipComponent.cs" />
     <Compile Include="Assets\Scripts\Components\BalloonComponent.cs" />
     <Compile Include="Assets\Scripts\Components\BillboardComponent.cs" />

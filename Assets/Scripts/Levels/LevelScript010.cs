@@ -148,6 +148,8 @@ public class LevelScript010 : LevelScriptBase {
 
         Delay(0.8f);
         Transmission(tower_openfire, true);
+        Print("Destroy Hostile Aircraft");
+
 
         // wait for interceptors destroyed
 
@@ -157,6 +159,8 @@ public class LevelScript010 : LevelScriptBase {
         Transmission(tower_allclear, true);
         Delay(0.7f);
         Transmission(captain_landing, true);
+
+        Print("Land the plane");
 
         // wait until landed
 

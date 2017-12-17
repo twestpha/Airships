@@ -9,7 +9,7 @@ public class AirplaneGunComponent : MonoBehaviour {
     private Timer fireTimer;
     private Timer overlayTimer;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private Texture defaultOverlay;
 
     public GameObject playerCameraObject;
@@ -29,7 +29,7 @@ public class AirplaneGunComponent : MonoBehaviour {
         airplaneCamera = playerCameraObject.GetComponent<VehicleCameraComponent>();
         defaultOverlay = airplaneCamera.overlay;
 
-        audioSource = GetComponent<AudioSource>();
+        // audioSource = GetComponent<AudioSource>();
     }
 
     void Update(){
