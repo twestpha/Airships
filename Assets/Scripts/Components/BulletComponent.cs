@@ -19,6 +19,8 @@ public class BulletComponent : MonoBehaviour {
 
     private const float DespawnRange = 800.0f;
 
+    public AirplaneComponent firedFromAirplane;
+
     void Start(){
         startPoint = transform.position;
     }
@@ -34,7 +36,12 @@ public class BulletComponent : MonoBehaviour {
     void OnCollisionEnter(Collision other){
         if(other.gameObject.layer == DamagableLayer){
             // TODO add generic hit marker splash
-            other.gameObject.GetComponent<DamageableComponent>().Damage(damage, armorBonus);
+
+            DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
+
+            if(!damageable.hasTeam || damageable.airplane.team != firedFromAirplane.team){
+                damageable.Damage(damage, armorBonus);
+            }
         } else if(other.gameObject.layer == WaterLayer && groundSplash){
             Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
         } else if(other.gameObject.layer == GroundLayer && waterSplash){

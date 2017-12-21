@@ -12,9 +12,14 @@ public class DamageableComponent : MonoBehaviour {
     public bool armored;
 
     public Material destroyedMaterial;
+    public bool hasTeam;
+    public AirplaneComponent airplane;
 
     void Start(){
         Assert.IsTrue(gameObject.layer == 8, "Damageable component on gameobject " + gameObject + " is layer " + gameObject.layer + " when it should be " + DamageableLayer);
+
+        airplane = GetComponent<AirplaneComponent>();
+        hasTeam = airplane != null;
     }
 
     void Update(){

@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class AirplaneComponent : MonoBehaviour {
 
+    public enum AirplaneType {
+        Interceptor,
+        Cargo,
+        Bomber,
+        Boss,
+    }
+    public enum AirplaneTeam {
+        Ally,
+        Enemy,
+    }
+    [Header("Types")]
+    public AirplaneType type;
+    public AirplaneTeam team;
+
     [Header("Speed")]
     public float maxSpeed;
     public float minSpeed;
@@ -58,17 +72,31 @@ public class AirplaneComponent : MonoBehaviour {
     private Timer lineTimer;
     private Vector3 prevPosition;
 
-    void Start(){
-        source.clip = engineSound;
-        source.Play();
+    private bool isPlayer;
 
-        lineTimer = new Timer(5.0f);
-        lineTimer.Start();
+    void Start(){
+        isPlayer = tag == "Player";
+
+        if(isPlayer){
+            source.clip = engineSound;
+            source.Play();
+
+            lineTimer = new Timer(5.0f);
+            lineTimer.Start();
+        }
 
         landingGearOut = true;
     }
 
     void FixedUpdate(){
+        if(isPlayer){
+            HandlePlayerInput();
+        } else {
+            // HandleBotInput();
+        }
+    }
+
+    void HandlePlayerInput(){
         if(lineTimer.Finished()){
             Debug.DrawLine(transform.position, prevPosition, Color.red, 10000.0f);
             prevPosition = transform.position;
@@ -154,4 +182,5 @@ public class AirplaneComponent : MonoBehaviour {
         source.volume = 0.5f + (throttle / 2.0f);
         source.pitch = 0.5f + (throttle / 2.0f);
     }
+
 }

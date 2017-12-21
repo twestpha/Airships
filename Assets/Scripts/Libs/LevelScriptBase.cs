@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class LevelScriptBase : MonoBehaviour {
@@ -64,12 +65,13 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
-    // Print - prints out debug information
+    // Print - prints out to screen
     protected void Print(string s){
         functionlist.Add(new Func<int>(() => {return Print_(s);    }));
     }
     protected static int Print_(string s){
         Debug.Log(s);
+        Camera.main.gameObject.GetComponent<VehicleCameraComponent>().PrintStringToScreen(s);
         return NextCmd;
     }
 
@@ -112,6 +114,15 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected int EnableAirplaneGuns_(GameObject gameobject, bool enabled){
         gameobject.GetComponent<AirplaneGunComponent>().gunsEnabled = enabled;
+        return NextCmd;
+    }
+
+    // LoadLevel - loads the next named level
+    protected void LoadLevel(string levelname){
+        functionlist.Add(new Func<int>(() => {return LoadLevel_(levelname);    }));
+    }
+    protected int LoadLevel_(string levelname){
+        SceneManager.LoadScene(levelname);
         return NextCmd;
     }
 

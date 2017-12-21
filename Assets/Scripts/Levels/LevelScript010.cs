@@ -33,6 +33,7 @@ public class LevelScript010 : LevelScriptBase {
 
     [Header("GameObject Prefabs")]
     public GameObject balloonPrefab;
+    public GameObject cargoPlanePrefab;
 
     protected override void Progression(){
 
@@ -49,7 +50,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(tower_starttesting, true);
 
-        Print("Press [A] and [S] to change throttle");
+        Print("[A] and [S] to change throttle");
 
         SetVarToThrottle(player, "throttle");
         WaitGreaterThan("throttle", 0.8f);
@@ -59,7 +60,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.5f);
         EnableAirplaneThrottle(player, true);
 
-        Print("[Mouse Up] and [Mouse Down] to pitch plane");
+        Print("[Up] and [Down] to pitch plane");
 
         SetVarToAirspeed(player, "airspeed");
         WaitGreaterThan("airspeed", 85.0f);
@@ -68,7 +69,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.3f);
         Transmission(captain_confirmspeed, true);
         Delay(1.2f);
-        Print("[Mouse Left] and [Mouse Right] to yaw plane");
+        Print("[Left] and [Right] to yaw plane");
         Transmission(tower_controlstest, true);
         Delay(0.6f);
         Transmission(captain_confirmcontrols, true);
@@ -76,7 +77,7 @@ public class LevelScript010 : LevelScriptBase {
         Print("[Q] and [E] to roll plane");
         Transmission(tower_headsouth, true);
 
-        Print("Use the instruments to track altitude, heading, and airspeed");
+        Print("Instruments are for heading");
 
         SetVarToHeading(player, "heading");
         WaitInRange("heading", 135.0f, 225.0f); // South
@@ -101,7 +102,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(tower_headwest, true);
         EnableAirplaneGuns(player, true);
-        Print("[Left Mouse Button] to fire primary weapon");
+        Print("[Left Mouse] to fire main weapon");
 
         SetVarToBalloonKills("balloonkills");
         WaitGreaterThanEqual("balloonkills", 1);
@@ -132,6 +133,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.8f);
         Transmission(tower_nice, true);
         Delay(0.3f);
+        CreateObjectAtPosition(cargoPlanePrefab, new Vector3(1058.0f, 335.0f, -131.0f));
         Transmission(captain_handles, true);
         Transmission(bogey_intro, true);
         Delay(0.5f);
@@ -164,6 +166,6 @@ public class LevelScript010 : LevelScriptBase {
 
         // wait until landed
 
-        // end level
+        LoadLevel("020_blitz");
     }
 }
