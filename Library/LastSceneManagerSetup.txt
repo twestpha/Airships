@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/tst_airship.unity
+- path: Assets/Scenes/Game/010_tutorial.unity
   isLoaded: 1
   isActive: 1

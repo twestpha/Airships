@@ -10,24 +10,18 @@ public class AirplaneGunComponent : MonoBehaviour {
     private Timer overlayTimer;
 
     public AudioSource audioSource;
-    private Texture defaultOverlay;
-
-    public GameObject playerCameraObject;
-    private VehicleCameraComponent airplaneCamera;
 
     private LevelScriptBase levelScript;
 
     public bool gunsEnabled = true;
     public int bulletsfired;
+    public bool overlayActive;
 
     void Start(){
         fireTimer = new Timer(currentGun.fireTime);
         overlayTimer = new Timer(0.05f);
 
         currentGun.currentAmmo = currentGun.startingAmmo;
-
-        airplaneCamera = playerCameraObject.GetComponent<VehicleCameraComponent>();
-        defaultOverlay = airplaneCamera.overlay;
 
         // audioSource = GetComponent<AudioSource>();
     }
@@ -37,10 +31,10 @@ public class AirplaneGunComponent : MonoBehaviour {
             overlayTimer.Start();
             fireTimer.Start();
 
+            overlayActive = true;
+
             audioSource.clip = currentGun.fireSound;
             audioSource.Play();
-
-            airplaneCamera.overlay = currentGun.firingOverlay;
 
             // two spawn points, on both sides of airplane
             if(currentGun.useMachineGunSpawns){
@@ -65,7 +59,7 @@ public class AirplaneGunComponent : MonoBehaviour {
         }
 
         if(overlayTimer.FinishedThisFrame()){
-            airplaneCamera.overlay = defaultOverlay;
+            overlayActive = false;
         }
     }
 

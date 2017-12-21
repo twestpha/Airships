@@ -10,17 +10,24 @@ public class VehicleCameraComponent : MonoBehaviour {
     private Camera vehicleCamera;
 
     public RenderTexture renderTexture;
-    public Texture overlay;
+
+    public Texture vehicleBase;
+    public Texture firingHighlights;
 
     public Texture briefingScreen;
 
     public bool briefingMode = false;
+
+    public GameObject airplaneGunObject;
+    private AirplaneGunComponent gunComponent;
 
     void Start() {
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
 
         vehicleCamera = GetComponent<Camera>();
+
+        gunComponent = airplaneGunObject.GetComponent<AirplaneGunComponent>();
     }
 
     void OnGUI() {
@@ -30,7 +37,12 @@ public class VehicleCameraComponent : MonoBehaviour {
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), briefingScreen);
         } else {
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
-            GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), overlay);
+
+            GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), vehicleBase);
+
+            if(gunComponent.overlayActive){
+                GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), firingHighlights);
+            }
         }
     }
 }

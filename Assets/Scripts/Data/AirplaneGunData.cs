@@ -14,7 +14,8 @@ public class AirplaneGunData : ScriptableObject {
     public float armorBonus; // can be positive or negative
     public float fireTime;
 
-    public Texture firingOverlay;
+    public Texture firingOverlayA;
+    public Texture firingOverlayB;
 
     // 16kbps/16000 samples
     public AudioClip fireSound;
