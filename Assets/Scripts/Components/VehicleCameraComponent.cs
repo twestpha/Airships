@@ -58,7 +58,7 @@ public class VehicleCameraComponent : MonoBehaviour {
             if(!screenTimer.Finished()){
                 for(int i = 0; i < MaxStringLength; ++i){
                     if(screenStringTextures[i]){
-                        GUI.DrawTexture(new Rect(i * FontWidth * texelsToScreenX, 0, FontWidth * texelsToScreenX, FontHeight * texelsToScreenY), screenStringTextures[i]);
+                        GUI.DrawTexture(new Rect(i * FontWidth * texelsToScreenX, 5 * texelsToScreenY, FontWidth * texelsToScreenX, FontHeight * texelsToScreenY), screenStringTextures[i]);
                     }
                 }
             }
