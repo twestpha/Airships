@@ -6,6 +6,8 @@ using System;
 
 public class LevelScriptBase : MonoBehaviour {
 
+    public SaveGameData saveGameData;
+
     protected List<Func<int>> functionlist;
 
     protected const int NextCmd = 1;
@@ -29,6 +31,7 @@ public class LevelScriptBase : MonoBehaviour {
     public int balloonkills = 0;
     public int interceptorkills = 0;
     public int bomberkills = 0;
+    public int bosskills = 0;
     public int deaths = 0;
 
     void Start(){
@@ -49,6 +52,62 @@ public class LevelScriptBase : MonoBehaviour {
             command += functionlist[command]();
             finished = command > functionlist.Count - 1;
         }
+
+        // Debug save/load testing
+        if(Input.GetKeyDown(KeyCode.F5)){
+            SaveGame();
+        } else if(Input.GetKeyDown(KeyCode.F6)){
+            LoadGame();
+        }
+    }
+
+    void SaveGame(){
+        Print_("Game Saved");
+
+        saveGameData.levelScriptCommand = command;
+        saveGameData.levelBalloonkills = balloonkills;
+        saveGameData.levelInterceptorkills = interceptorkills;
+        saveGameData.levelBomberkills = bomberkills;
+        saveGameData.levelBosskills = bosskills;
+        saveGameData.levelDeaths = deaths;
+
+        saveGameData.playerPosition = player.transform.position;
+        saveGameData.playerOrientation = player.transform.rotation;
+
+        AirplaneComponent playerAirplaneComponent = player.GetComponent<AirplaneComponent>();
+        saveGameData.playerThrottleEnabled = playerAirplaneComponent.throttleEnabled;
+        saveGameData.playerVelocity = playerAirplaneComponent.velocity;
+        saveGameData.playerThrottle = playerAirplaneComponent.throttle;
+
+        AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
+        saveGameData.playerGunsEnabled = playerAirplaneGunComponent.gunsEnabled;
+    }
+
+    void LoadGame(){
+        Print_("Game Loaded");
+
+        // stomp currently playing audio
+        if(GetComponent<AudioSource>().isPlaying){
+            GetComponent<AudioSource>().Stop();
+        }
+
+        command = saveGameData.levelScriptCommand;
+        balloonkills = saveGameData.levelBalloonkills;
+        interceptorkills = saveGameData.levelInterceptorkills;
+        bomberkills = saveGameData.levelBomberkills;
+        bosskills = saveGameData.levelBosskills;
+        deaths = saveGameData.levelDeaths;
+
+        player.transform.position = saveGameData.playerPosition;
+        player.transform.rotation = saveGameData.playerOrientation;
+
+        AirplaneComponent playerAirplaneComponent = player.GetComponent<AirplaneComponent>();
+        playerAirplaneComponent.throttleEnabled = saveGameData.playerThrottleEnabled;
+        playerAirplaneComponent.velocity = saveGameData.playerVelocity;
+        playerAirplaneComponent.throttle = saveGameData.playerThrottle;
+
+        AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
+        playerAirplaneGunComponent.gunsEnabled = saveGameData.playerGunsEnabled;
     }
 
     protected virtual void Progression(){}
@@ -223,28 +282,28 @@ public class LevelScriptBase : MonoBehaviour {
 
     // Int variable methods
     protected void WaitEqual(string varname, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] == b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] == b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitNotEqual(string varname, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] != b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] != b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitGreaterThan(string varname, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] > b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] > b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitLessThan(string varname, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] < b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] < b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitGreaterThanEqual(string varname, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] >= b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] >= b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitLessThanEqual(string varname, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] <= b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] <= b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitInRange(string varname, int a, int b){
-        functionlist.Add(new Func<int>(() => {return a <= intdict[varname] && intdict[varname] <= b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (a <= intdict[varname] && intdict[varname] <= b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitOutOfRange(string varname, int a, int b){
-        functionlist.Add(new Func<int>(() => {return intdict[varname] <= a && b <= intdict[varname] ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return intdict.ContainsKey(varname) ? (intdict[varname] <= a && b <= intdict[varname] ? NextCmd : PrevCmd) : NextCmd;  }));
     }
 
     // Float methods
@@ -275,27 +334,27 @@ public class LevelScriptBase : MonoBehaviour {
 
     // Float variable methods
     protected void WaitEqual(string varname, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] == b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] == b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitNotEqual(string varname, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] != b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] != b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitGreaterThan(string varname, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] > b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] > b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitLessThan(string varname, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] < b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] < b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitGreaterThanEqual(string varname, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] >= b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] >= b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitLessThanEqual(string varname, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] <= b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] <= b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitInRange(string varname, float a, float b){
-        functionlist.Add(new Func<int>(() => {return a <= floatdict[varname] && floatdict[varname] <= b ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (a <= floatdict[varname] && floatdict[varname] <= b ? NextCmd : PrevCmd) : NextCmd;  }));
     }
     protected void WaitOutOfRange(string varname, float a, float b){
-        functionlist.Add(new Func<int>(() => {return floatdict[varname] <= a && b <= floatdict[varname] ? NextCmd : PrevCmd;  }));
+        functionlist.Add(new Func<int>(() => {return floatdict.ContainsKey(varname) ? (floatdict[varname] <= a && b <= floatdict[varname] ? NextCmd : PrevCmd) : NextCmd;  }));
     }
 }

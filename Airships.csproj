@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Data\AirplaneGunData.cs" />
     <Compile Include="Assets\Scripts\Data\FontTextureData.cs" />
     <Compile Include="Assets\Scripts\Data\GunData.cs" />
+    <Compile Include="Assets\Scripts\Data\SaveGameData.cs" />
     <Compile Include="Assets\Scripts\Interacts\DoorInteract.cs" />
     <Compile Include="Assets\Scripts\Interacts\ElevatorInteract.cs" />
     <Compile Include="Assets\Scripts\Interacts\FormationFlight.cs" />
