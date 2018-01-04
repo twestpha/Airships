@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioLowPassFilter))]
+[RequireComponent(typeof(AudioHighPassFilter))]
 public class LevelScriptBase : MonoBehaviour {
 
     public SaveGameData saveGameData;
@@ -13,6 +16,20 @@ public class LevelScriptBase : MonoBehaviour {
     protected const int NextCmd = 1;
     protected const int ThisCmd = 0;
     protected const int PrevCmd = -1;
+
+    // #########################################################################
+    // Transmission Settings
+    // #########################################################################
+    protected const bool useradio = true;
+    protected const bool dontuseradio = false;
+
+    protected const bool wait = true;
+    protected const bool dontwait = false;
+
+    private const float radioLowPassFilterCutoffFrequency = 2300.0f;
+    private const float radioHighPassFilterCutoffFrequency = 600.0f;
+
+    // #########################################################################
 
     public int command = 0;
     private bool finished = false;
@@ -42,6 +59,9 @@ public class LevelScriptBase : MonoBehaviour {
 
         delayTimer = new Timer();
         delayTimer.FinishedThisFrame();
+
+        GetComponent<AudioLowPassFilter>().cutoffFrequency = radioLowPassFilterCutoffFrequency;
+        GetComponent<AudioHighPassFilter>().cutoffFrequency = radioHighPassFilterCutoffFrequency;
 
         functionlist = new List<Func<int>>();
         Progression();
@@ -135,13 +155,14 @@ public class LevelScriptBase : MonoBehaviour {
     }
 
     // Transmission - plays audioclip
-    protected void Transmission(AudioClip clip, bool wait){
-        functionlist.Add(new Func<int>(() => {return Transmission_(clip, wait);   }));
+    protected void Transmission(AudioClip clip, bool wait, bool useradio){
+        functionlist.Add(new Func<int>(() => {return Transmission_(clip, wait, useradio);   }));
     }
-    protected int Transmission_(AudioClip clip, bool wait){
+    protected int Transmission_(AudioClip clip, bool wait, bool useradio){
         AudioSource source = GetComponent<AudioSource>();
 
         if(!source.isPlaying && source.clip != clip){
+            source.bypassEffects = !useradio;
             source.clip = clip;
             source.Play();
         }
@@ -217,6 +238,14 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected int SetVarToBalloonKills_(string varname){
         intdict[varname] = balloonkills;
+        return NextCmd;
+    }
+
+    protected void SetVarToInterceptorKills(string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToInterceptorKills_(varname);    }));
+    }
+    protected int SetVarToInterceptorKills_(string varname){
+        intdict[varname] = interceptorkills;
         return NextCmd;
     }
 

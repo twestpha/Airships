@@ -44,11 +44,11 @@ public class LevelScript010 : LevelScriptBase {
         EnableAirplaneThrottle(player, false);
         EnableAirplaneGuns(player, false);
         Delay(3.0f);
-        Transmission(tower_intro, true);
+        Transmission(tower_intro, wait, useradio);
         Delay(0.5f);
-        Transmission(captain_intro, true);
+        Transmission(captain_intro, wait, dontuseradio);
         Delay(0.7f);
-        Transmission(tower_starttesting, true);
+        Transmission(tower_starttesting, wait, useradio);
 
         Print("[A] and [S] to change throttle");
 
@@ -56,7 +56,7 @@ public class LevelScript010 : LevelScriptBase {
         WaitGreaterThan("throttle", 0.8f);
 
         Delay(0.3f);
-        Transmission(tower_allgreen, true);
+        Transmission(tower_allgreen, wait, useradio);
         Delay(0.5f);
         EnableAirplaneThrottle(player, true);
 
@@ -65,25 +65,25 @@ public class LevelScript010 : LevelScriptBase {
         SetVarToAirspeed(player, "airspeed");
         WaitGreaterThan("airspeed", 85.0f);
 
-        Transmission(tower_instruments, true);
+        Transmission(tower_instruments, wait, useradio);
         Delay(0.3f);
-        Transmission(captain_confirmspeed, true);
+        Transmission(captain_confirmspeed, wait, dontuseradio);
         Delay(1.2f);
         Print("[Left] and [Right] to yaw plane");
-        Transmission(tower_controlstest, true);
+        Transmission(tower_controlstest, wait, useradio);
         Delay(0.6f);
-        Transmission(captain_confirmcontrols, true);
+        Transmission(captain_confirmcontrols, wait, dontuseradio);
         Delay(1.3f);
         Print("[Q] and [E] to roll plane");
-        Transmission(tower_headsouth, true);
+        Transmission(tower_headsouth, wait, useradio);
 
-        Print("Instruments are for heading");
+        Print("Use instruments for heading");
 
         SetVarToHeading(player, "heading");
         WaitInRange("heading", 135.0f, 225.0f); // South
 
         Delay(0.6f);
-        Transmission(captain_headsouth, true);
+        Transmission(captain_headsouth, wait, dontuseradio);
 
         CreateObjectAtPosition(balloonPrefab, new Vector3(-834.0f, 0.0f, 162.0f));
         Delay(0.6f);
@@ -96,11 +96,11 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         CreateObjectAtPosition(balloonPrefab, new Vector3(-735.0f, 0.0f, -55.0f));
 
-        Transmission(tower_interjection, true);
+        Transmission(tower_interjection, wait, useradio);
         Delay(1.2f);
-        Transmission(tower_barrageballoons, true);
+        Transmission(tower_barrageballoons, wait, useradio);
         Delay(0.7f);
-        Transmission(tower_headwest, true);
+        Transmission(tower_headwest, wait, useradio);
         EnableAirplaneGuns(player, true);
         Print("[Left Mouse] to fire main weapon");
 
@@ -129,38 +129,38 @@ public class LevelScript010 : LevelScriptBase {
         Print("Balloons Deflated 6/6");
 
         Delay(1.3f);
-        Transmission(captain_ballons, true);
+        Transmission(captain_ballons, wait, dontuseradio);
         Delay(0.8f);
-        Transmission(tower_nice, true);
+        Transmission(tower_nice, wait, useradio);
         Delay(0.3f);
         CreateObjectAtPosition(cargoPlanePrefab, new Vector3(1058.0f, 335.0f, -131.0f));
-        Transmission(captain_handles, true);
-        Transmission(bogey_intro, true);
+        Transmission(captain_handles, wait, dontuseradio);
+        Transmission(bogey_intro, wait, useradio);
         Delay(0.5f);
-        Transmission(tower_warning, true);
+        Transmission(tower_warning, wait, useradio);
         Delay(0.4f);
-        Transmission(tower_headeast, true);
+        Transmission(tower_headeast, wait, useradio);
         Delay(0.1f);
-        Transmission(tower_warning2, true);
+        Transmission(tower_warning2, wait, useradio);
         Delay(0.7f);
-        Transmission(bogey_intro2, true);
+        Transmission(bogey_intro2, wait, useradio);
 
         SetVarToHeading(player, "heading");
         WaitInRange("heading", 45.0f, 315.0f); // East
 
         Delay(0.8f);
-        Transmission(tower_openfire, true);
+        Transmission(tower_openfire, true, useradio);
         Print("Destroy Hostile Aircraft");
 
-
-        // wait for interceptors destroyed
+        SetVarToInterceptorKills("interceptorkills");
+        WaitGreaterThanEqual("interceptorkills", 1);
 
         Delay(0.4f);
-        Transmission(captain_confirmkill, true);
+        Transmission(captain_confirmkill, wait, dontuseradio);
         Delay(0.4f);
-        Transmission(tower_allclear, true);
+        Transmission(tower_allclear, wait, useradio);
         Delay(0.7f);
-        Transmission(captain_landing, true);
+        Transmission(captain_landing, wait, dontuseradio);
 
         Print("Land the plane");
 
