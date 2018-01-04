@@ -37,12 +37,13 @@ public class LevelScript010 : LevelScriptBase {
 
     protected override void Progression(){
 
-        // fullscreen ui briefing
-
-        // fade in
-
         EnableAirplaneThrottle(player, false);
         EnableAirplaneGuns(player, false);
+
+        EnableBriefingMode(maincamera, true);
+        WaitForMouseClick();
+        EnableBriefingMode(maincamera, false);
+
         Delay(3.0f);
         Transmission(tower_intro, wait, useradio);
         Delay(0.5f);

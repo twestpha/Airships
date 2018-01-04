@@ -17,6 +17,8 @@ public class LevelScriptBase : MonoBehaviour {
     protected const int ThisCmd = 0;
     protected const int PrevCmd = -1;
 
+    private const int saveversion = 1;
+
     // #########################################################################
     // Transmission Settings
     // #########################################################################
@@ -32,9 +34,11 @@ public class LevelScriptBase : MonoBehaviour {
     // #########################################################################
 
     public int command = 0;
+    private const int maxCommandsPerFrame = 4;
     private bool finished = false;
 
     protected GameObject player;
+    protected GameObject maincamera;
 
     private Timer delayTimer;
 
@@ -53,6 +57,7 @@ public class LevelScriptBase : MonoBehaviour {
 
     void Start(){
         player = GameObject.FindWithTag("Player");
+        maincamera = GameObject.FindWithTag("MainCamera");
 
         floatdict = new Dictionary<string, float>();
         intdict = new Dictionary<string, int>();
@@ -69,8 +74,16 @@ public class LevelScriptBase : MonoBehaviour {
 
     void Update(){
         if(!finished){
-            command += functionlist[command]();
-            finished = command > functionlist.Count - 1;
+            for(int i = 0; i < maxCommandsPerFrame; ++i){
+                int previousCommand = command;
+
+                command += functionlist[command]();
+                finished = command > functionlist.Count - 1;
+
+                if(command == previousCommand || finished){
+                    break;
+                }
+            }
         }
 
         // Debug save/load testing
@@ -83,6 +96,8 @@ public class LevelScriptBase : MonoBehaviour {
 
     void SaveGame(){
         Print_("Game Saved");
+
+        saveGameData.saveversion = saveversion;
 
         saveGameData.levelScriptCommand = command;
         saveGameData.levelBalloonkills = balloonkills;
@@ -101,9 +116,16 @@ public class LevelScriptBase : MonoBehaviour {
 
         AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
         saveGameData.playerGunsEnabled = playerAirplaneGunComponent.gunsEnabled;
+
+        saveGameData.playerBriefingMode = maincamera.GetComponent<VehicleCameraComponent>().briefingMode;
     }
 
     void LoadGame(){
+        if(saveGameData.saveversion != saveversion){
+            Print_("Load Failed");
+            return;
+        }
+
         Print_("Game Loaded");
 
         // stomp currently playing audio
@@ -128,6 +150,8 @@ public class LevelScriptBase : MonoBehaviour {
 
         AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
         playerAirplaneGunComponent.gunsEnabled = saveGameData.playerGunsEnabled;
+
+        maincamera.GetComponent<VehicleCameraComponent>().briefingMode = saveGameData.playerBriefingMode;
     }
 
     protected virtual void Progression(){}
@@ -194,6 +218,15 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected int EnableAirplaneGuns_(GameObject gameobject, bool enabled){
         gameobject.GetComponent<AirplaneGunComponent>().gunsEnabled = enabled;
+        return NextCmd;
+    }
+
+    // EnableBriefingMode - sets the gameobject's ui to briefing mode enabled or not
+    protected void EnableBriefingMode(GameObject gameobject, bool enabled){
+        functionlist.Add(new Func<int>(() => {return EnableBriefingMode_(gameobject, enabled);    }));
+    }
+    protected int EnableBriefingMode_(GameObject gameobject, bool enabled){
+        gameobject.GetComponent<VehicleCameraComponent>().briefingMode = enabled;
         return NextCmd;
     }
 
@@ -281,6 +314,13 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected static int WaitForGameTime_(float gametime){
         return Time.time > gametime ? NextCmd : ThisCmd;
+    }
+
+    protected void WaitForMouseClick(){
+        functionlist.Add(new Func<int>(() => {return WaitForMouseClick_();  }));
+    }
+    protected static int WaitForMouseClick_(){
+        return Input.GetMouseButton(0) ? NextCmd : ThisCmd;
     }
 
     // Int methods

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu()]
 [System.Serializable]
 public class SaveGameData : ScriptableObject {
+    public int saveversion;
     // Level Script
     public int levelScriptCommand;
     public int levelBalloonkills;
@@ -22,5 +23,7 @@ public class SaveGameData : ScriptableObject {
     public float playerThrottle;
     // Player Airplane Gun Component
     public bool playerGunsEnabled;
+    // Player Vehicle Camera component
+    public bool playerBriefingMode;
 
 }

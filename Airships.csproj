@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\Interacts\ThrottleInteract.cs" />
     <Compile Include="Assets\Scripts\Interacts\WheelInteract.cs" />
     <Compile Include="Assets\Scripts\Levels\LevelScript010.cs" />
+    <Compile Include="Assets\Scripts\Levels\LevelScript020.cs" />
     <Compile Include="Assets\Scripts\Libs\LevelScriptBase.cs" />
     <Compile Include="Assets\Scripts\Libs\Timer.cs" />
   </ItemGroup>
