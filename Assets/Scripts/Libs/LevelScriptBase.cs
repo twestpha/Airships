@@ -203,6 +203,15 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
+    // CreateObjectAtPositionWithRotation - creates a given gameobject at position with a rotation
+    protected void CreateObjectAtPositionWithRotation(GameObject gameobject, Vector3 position, Vector3 rotation){
+        functionlist.Add(new Func<int>(() => {return CreateObjectAtPositionWithRotation_(gameobject, position, rotation);   }));
+    }
+    protected int CreateObjectAtPositionWithRotation_(GameObject gameobject, Vector3 position, Vector3 rotation){
+        GameObject.Instantiate(gameobject, position, Quaternion.Euler(rotation));
+        return NextCmd;
+    }
+
     // EnableAirplaneThrottle - sets the gameobject's airplane component throttle enabled or not
     protected void EnableAirplaneThrottle(GameObject gameobject, bool enabled){
         functionlist.Add(new Func<int>(() => {return EnableAirplaneThrottle_(gameobject, enabled);    }));

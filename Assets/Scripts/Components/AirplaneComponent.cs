@@ -14,9 +14,15 @@ public class AirplaneComponent : MonoBehaviour {
         Ally,
         Enemy,
     }
+    public enum AirplaneBehavior {
+        Simple,
+        Engaging,
+        Custom,
+    }
     [Header("Types")]
     public AirplaneType type;
     public AirplaneTeam team;
+    public AirplaneBehavior behavior;
 
     [Header("Speed")]
     public float maxSpeed;
@@ -92,8 +98,14 @@ public class AirplaneComponent : MonoBehaviour {
         if(isPlayer){
             HandlePlayerInput();
         } else {
-            // HandleBotInput();
+            switch(behavior){
+            case AirplaneBehavior.Simple:
+                // Nothing, just apply velocity
+            break;
+            }
         }
+
+        ApplyVelocity();
     }
 
     void HandlePlayerInput(){
@@ -136,7 +148,9 @@ public class AirplaneComponent : MonoBehaviour {
         if(Input.GetKeyDown("g")){
             landingGearOut = !landingGearOut;
         }
+    }
 
+    void ApplyVelocity(){
         // Takeoff and landing
         float minSpeedWithGear = minSpeed;
         if(landingGearOut && transform.position.y < 3.0f){

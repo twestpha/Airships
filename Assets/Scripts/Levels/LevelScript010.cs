@@ -134,7 +134,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.8f);
         Transmission(tower_nice, wait, useradio);
         Delay(0.3f);
-        CreateObjectAtPosition(cargoPlanePrefab, new Vector3(1058.0f, 335.0f, -131.0f));
+        CreateObjectAtPositionWithRotation(cargoPlanePrefab, new Vector3(3000.0f, 335.0f, -131.0f), new Vector3(0.0f, -90.0f, 0.0f));
         Transmission(captain_handles, wait, dontuseradio);
         Transmission(bogey_intro, wait, useradio);
         Delay(0.5f);
