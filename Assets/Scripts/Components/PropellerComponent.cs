@@ -11,6 +11,6 @@ public class PropellerComponent : MonoBehaviour {
     }
 
     void Update(){
-        transform.rotation *= Quaternion.Euler(0.0f, 0.0f, angularVelocity * Time.deltaTime);
+        transform.Rotate(new Vector3(0.0f, 0.0f, angularVelocity * Time.deltaTime));
     }
 }

@@ -6,7 +6,6 @@ public class AirplaneComponent : MonoBehaviour {
 
     public enum AirplaneType {
         Interceptor,
-        Cargo,
         Bomber,
         Boss,
     }
@@ -79,6 +78,7 @@ public class AirplaneComponent : MonoBehaviour {
     private Vector3 prevPosition;
 
     private bool isPlayer;
+    private bool destroyed;
 
     void Start(){
         isPlayer = tag == "Player";
@@ -106,6 +106,8 @@ public class AirplaneComponent : MonoBehaviour {
         }
 
         ApplyVelocity();
+
+        ApplyDamage();
     }
 
     void HandlePlayerInput(){
@@ -195,6 +197,28 @@ public class AirplaneComponent : MonoBehaviour {
         // throttle Sound
         source.volume = 0.5f + (throttle / 2.0f);
         source.pitch = 0.5f + (throttle / 2.0f);
+    }
+
+    void ApplyDamage(){
+        bool prevdestroyed = destroyed;
+
+        destroyed = GetComponent<DamageableComponent>().health <= 0.0f;
+
+        if(!prevdestroyed && destroyed && team == AirplaneTeam.Enemy){
+            LevelScriptBase levelscript = GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>();
+
+            switch(type){
+            case AirplaneType.Interceptor:
+                levelscript.interceptorkills++;
+            break;
+            case AirplaneType.Bomber:
+                levelscript.bomberkills++;
+            break;
+            case AirplaneType.Boss:
+                levelscript.bosskills++;
+            break;
+            }
+        }
     }
 
 }
