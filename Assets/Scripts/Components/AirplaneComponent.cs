@@ -57,6 +57,10 @@ public class AirplaneComponent : MonoBehaviour {
     private float acceleration;
     public Vector3 angularVelocity;
 
+    [Header("Destruction")]
+    public GameObject firePrefab;
+    public Vector3 firePosition;
+
     // The notion is not that it's a simulation, but an interactive
     // system. This is where we prove out the resources the player
     // has to juggle while pushing the aircraft to the limit.
@@ -95,19 +99,24 @@ public class AirplaneComponent : MonoBehaviour {
     }
 
     void FixedUpdate(){
-        if(isPlayer){
-            HandlePlayerInput();
-        } else {
-            switch(behavior){
-            case AirplaneBehavior.Simple:
-                // Nothing, just apply velocity
-            break;
+        if(!destroyed){
+            if(isPlayer){
+                HandlePlayerInput();
+            } else {
+                switch(behavior){
+                case AirplaneBehavior.Simple:
+                    // Nothing, just apply velocity
+                break;
+                }
             }
+
+
+            ApplyDamage();
+        } else {
+
         }
 
         ApplyVelocity();
-
-        ApplyDamage();
     }
 
     void HandlePlayerInput(){
@@ -155,7 +164,7 @@ public class AirplaneComponent : MonoBehaviour {
     void ApplyVelocity(){
         // Takeoff and landing
         float minSpeedWithGear = minSpeed;
-        if(landingGearOut && transform.position.y < 3.0f){
+        if(landingGearOut && transform.position.y < 3.0f && !destroyed){
              minSpeedWithGear = 0.0f;
              aileronCurrent = 0.0f;
 
@@ -204,19 +213,29 @@ public class AirplaneComponent : MonoBehaviour {
 
         destroyed = GetComponent<DamageableComponent>().health <= 0.0f;
 
-        if(!prevdestroyed && destroyed && team == AirplaneTeam.Enemy){
-            LevelScriptBase levelscript = GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>();
+        if(!prevdestroyed && destroyed){
+            firePrefab = Instantiate(firePrefab);
+            firePrefab.transform.parent = transform;
+            firePrefab.transform.localPosition = firePosition;
 
-            switch(type){
-            case AirplaneType.Interceptor:
-                levelscript.interceptorkills++;
-            break;
-            case AirplaneType.Bomber:
-                levelscript.bomberkills++;
-            break;
-            case AirplaneType.Boss:
-                levelscript.bosskills++;
-            break;
+            aileronCurrent = -1.0f;
+            elevatorCurrent = 0.5f;
+            rudderCurrent = 0.5f;
+
+            if(team == AirplaneTeam.Enemy){
+                LevelScriptBase levelscript = GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>();
+
+                switch(type){
+                case AirplaneType.Interceptor:
+                    levelscript.interceptorkills++;
+                break;
+                case AirplaneType.Bomber:
+                    levelscript.bomberkills++;
+                break;
+                case AirplaneType.Boss:
+                    levelscript.bosskills++;
+                break;
+                }
             }
         }
     }
