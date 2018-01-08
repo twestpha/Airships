@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEditor;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AudioLowPassFilter))]
@@ -10,6 +11,7 @@ using System;
 public class LevelScriptBase : MonoBehaviour {
 
     public SaveGameData saveGameData;
+    private const int saveversion = 1;
 
     protected List<Func<int>> functionlist;
 
@@ -17,7 +19,6 @@ public class LevelScriptBase : MonoBehaviour {
     protected const int ThisCmd = 0;
     protected const int PrevCmd = -1;
 
-    private const int saveversion = 1;
 
     // #########################################################################
     // Transmission Settings
@@ -152,6 +153,12 @@ public class LevelScriptBase : MonoBehaviour {
         playerAirplaneGunComponent.gunsEnabled = saveGameData.playerGunsEnabled;
 
         maincamera.GetComponent<VehicleCameraComponent>().briefingMode = saveGameData.playerBriefingMode;
+    }
+
+    void OnApplicationQuit(){
+        // Commit save game data
+        EditorUtility.SetDirty(saveGameData);
+        AssetDatabase.SaveAssets();
     }
 
     protected virtual void Progression(){}

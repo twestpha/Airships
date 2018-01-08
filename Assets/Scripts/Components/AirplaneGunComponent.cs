@@ -34,6 +34,7 @@ public class AirplaneGunComponent : MonoBehaviour {
             overlayActive = true;
 
             audioSource.clip = currentGun.fireSound;
+            // audioSource.pitch = 0.95f + (Random.value * 0.1f);
             audioSource.Play();
 
             // two spawn points, on both sides of airplane
