@@ -51,7 +51,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(tower_starttesting, wait, useradio);
 
-        Print("[A] and [S] to change throttle");
+        Print("[W] and [S] to change throttle");
 
         SetVarToThrottle(player, "throttle");
         WaitGreaterThan("throttle", 0.8f);
