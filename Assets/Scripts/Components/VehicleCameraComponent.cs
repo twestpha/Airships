@@ -27,7 +27,7 @@ public class VehicleCameraComponent : MonoBehaviour {
     public const float FontHeight = 30.0f;
     public FontTextureData font;
     public Texture[] screenStringTextures;
-    public Timer screenTimer;
+    public Timer screenPrintTimer;
 
     void Start() {
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
@@ -38,7 +38,7 @@ public class VehicleCameraComponent : MonoBehaviour {
         gunComponent = airplaneGunObject.GetComponent<AirplaneGunComponent>();
 
         screenStringTextures = new Texture[MaxStringLength];
-        screenTimer = new Timer(7.0f);
+        screenPrintTimer = new Timer(7.0f);
     }
 
     void OnGUI() {
@@ -55,7 +55,7 @@ public class VehicleCameraComponent : MonoBehaviour {
                 GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), firingHighlights);
             }
 
-            if(!screenTimer.Finished()){
+            if(!screenPrintTimer.Finished()){
                 for(int i = 0; i < MaxStringLength; ++i){
                     if(screenStringTextures[i]){
                         GUI.DrawTexture(new Rect(i * FontWidth * texelsToScreenX, 5 * texelsToScreenY, FontWidth * texelsToScreenX, FontHeight * texelsToScreenY), screenStringTextures[i]);
@@ -78,6 +78,6 @@ public class VehicleCameraComponent : MonoBehaviour {
             Debug.LogWarning("Message '" + message + "' contains more than " + MaxStringLength + " characters and will be truncated");
         }
 
-        screenTimer.Start();
+        screenPrintTimer.Start();
     }
 }
