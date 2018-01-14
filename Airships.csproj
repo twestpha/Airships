@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\Data\FontTextureData.cs" />
     <Compile Include="Assets\Scripts\Data\GunData.cs" />
     <Compile Include="Assets\Scripts\Data\SaveGameData.cs" />
+    <Compile Include="Assets\Scripts\Effects\SkyboxFog.cs" />
     <Compile Include="Assets\Scripts\Interacts\DoorInteract.cs" />
     <Compile Include="Assets\Scripts\Interacts\ElevatorInteract.cs" />
     <Compile Include="Assets\Scripts\Interacts\FormationFlight.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Assets\Scripts\Libs\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Shaders\skybox_fog.shader" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
