@@ -62,6 +62,7 @@ public class AirplaneComponent : MonoBehaviour {
     private Timer deathTimer;
 
     public GameObject firePrefab;
+    public GameObject firePrefabInstance;
     public Vector3 firePosition;
     public GameObject burningPrefab;
     public GameObject scrapsPrefab;
@@ -124,7 +125,9 @@ public class AirplaneComponent : MonoBehaviour {
             Instantiate(burningPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
             Instantiate(scrapsPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
 
-            Destroy(firePrefab);
+            if(firePrefabInstance){
+                Destroy(firePrefabInstance);
+            }
 
             crashed = true;
 
@@ -243,9 +246,9 @@ public class AirplaneComponent : MonoBehaviour {
         destroyed = GetComponent<DamageableComponent>().health <= 0.0f;
 
         if(!prevdestroyed && destroyed){
-            firePrefab = Instantiate(firePrefab);
-            firePrefab.transform.parent = transform;
-            firePrefab.transform.localPosition = firePosition;
+            firePrefabInstance = Instantiate(firePrefab);
+            firePrefabInstance.transform.parent = transform;
+            firePrefabInstance.transform.localPosition = firePosition;
 
             aileronCurrent = -1.0f;
             elevatorCurrent = 0.5f;
