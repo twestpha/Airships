@@ -167,6 +167,6 @@ public class LevelScript010 : LevelScriptBase {
 
         // wait until landed
 
-        LoadLevel("020_blitz");
+        // LoadLevel("020_blitz");
     }
 }

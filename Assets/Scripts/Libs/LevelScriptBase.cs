@@ -152,7 +152,9 @@ public class LevelScriptBase : MonoBehaviour {
         AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
         playerAirplaneGunComponent.gunsEnabled = saveGameData.playerGunsEnabled;
 
-        maincamera.GetComponent<VehicleCameraComponent>().briefingMode = saveGameData.playerBriefingMode;
+        VehicleCameraComponent playerCamera = maincamera.GetComponent<VehicleCameraComponent>();
+        playerCamera.briefingMode = saveGameData.playerBriefingMode;
+        playerCamera.deathMode = false;
     }
 
     void OnApplicationQuit(){

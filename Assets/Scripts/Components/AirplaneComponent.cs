@@ -58,8 +58,13 @@ public class AirplaneComponent : MonoBehaviour {
     public Vector3 angularVelocity;
 
     [Header("Destruction")]
+    public bool crashed = false;
+    private Timer deathTimer;
+
     public GameObject firePrefab;
     public Vector3 firePosition;
+    public GameObject burningPrefab;
+    public GameObject scrapsPrefab;
 
     // The notion is not that it's a simulation, but an interactive
     // system. This is where we prove out the resources the player
@@ -93,6 +98,8 @@ public class AirplaneComponent : MonoBehaviour {
 
             lineTimer = new Timer(5.0f);
             lineTimer.Start();
+
+            deathTimer = new Timer(10.0f);
         }
 
         landingGearOut = true;
@@ -110,13 +117,35 @@ public class AirplaneComponent : MonoBehaviour {
                 }
             }
 
-
             ApplyDamage();
-        } else {
-
         }
 
-        ApplyVelocity();
+        if(transform.position.y < 0.0f && !crashed){
+            Instantiate(burningPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
+            Instantiate(scrapsPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
+
+            Destroy(firePrefab);
+
+            crashed = true;
+
+            if(!isPlayer){
+                Destroy(gameObject);
+            } else {
+                GameObject.FindWithTag("MainCamera").GetComponent<VehicleCameraComponent>().deathMode = true;
+                GameObject.FindWithTag("MainCamera").transform.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
+                deathTimer.Start();
+            }
+        }
+
+        if(!crashed){
+            ApplyVelocity();
+        } else if(isPlayer) {
+            HandleCrashCamera();
+        }
+    }
+
+    void HandleCrashCamera(){
+        GameObject.FindWithTag("MainCamera").transform.position = new Vector3(transform.position.x, deathTimer.Parameterized() * 100.0f + 100.0f, transform.position.z - 50.0f);
     }
 
     void HandlePlayerInput(){

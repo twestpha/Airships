@@ -17,6 +17,7 @@ public class VehicleCameraComponent : MonoBehaviour {
     public Texture briefingScreen;
 
     public bool briefingMode = false;
+    public bool deathMode = false;
 
     public GameObject airplaneGunObject;
     private AirplaneGunComponent gunComponent;
@@ -46,7 +47,7 @@ public class VehicleCameraComponent : MonoBehaviour {
 
         if(briefingMode){
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), briefingScreen);
-        } else {
+        } else if(!deathMode) {
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
 
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), vehicleBase);
@@ -62,6 +63,8 @@ public class VehicleCameraComponent : MonoBehaviour {
                     }
                 }
             }
+        } else {
+            GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
         }
     }
 

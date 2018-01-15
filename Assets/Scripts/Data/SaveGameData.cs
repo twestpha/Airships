@@ -25,5 +25,4 @@ public class SaveGameData : ScriptableObject {
     public bool playerGunsEnabled;
     // Player Vehicle Camera component
     public bool playerBriefingMode;
-
 }
