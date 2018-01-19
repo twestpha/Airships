@@ -19,7 +19,6 @@ public class LevelScriptBase : MonoBehaviour {
     protected const int ThisCmd = 0;
     protected const int PrevCmd = -1;
 
-
     // #########################################################################
     // Transmission Settings
     // #########################################################################
@@ -45,6 +44,8 @@ public class LevelScriptBase : MonoBehaviour {
 
     Dictionary<string, float> floatdict;
     Dictionary<string, int> intdict;
+
+    public AudioSource radioAudioSource;
 
     // #########################################################################
     // Level Stats to track
@@ -130,8 +131,8 @@ public class LevelScriptBase : MonoBehaviour {
         Print_("Game Loaded");
 
         // stomp currently playing audio
-        if(GetComponent<AudioSource>().isPlaying){
-            GetComponent<AudioSource>().Stop();
+        if(radioAudioSource.isPlaying){
+            radioAudioSource.Stop();
         }
 
         command = saveGameData.levelScriptCommand;
@@ -192,15 +193,23 @@ public class LevelScriptBase : MonoBehaviour {
         functionlist.Add(new Func<int>(() => {return Transmission_(clip, wait, useradio);   }));
     }
     protected int Transmission_(AudioClip clip, bool wait, bool useradio){
-        AudioSource source = GetComponent<AudioSource>();
-
-        if(!source.isPlaying && source.clip != clip){
-            source.bypassEffects = !useradio;
-            source.clip = clip;
-            source.Play();
+        if(!radioAudioSource.isPlaying && radioAudioSource.clip != clip){
+            radioAudioSource.bypassEffects = !useradio;
+            radioAudioSource.clip = clip;
+            radioAudioSource.Play();
         }
 
-        return wait && source.isPlaying ? ThisCmd : NextCmd;
+        return wait && radioAudioSource.isPlaying ? ThisCmd : NextCmd;
+    }
+
+    // PlaySong - plays music
+    protected void PlaySong(string trackListName, int trackNumber){
+        functionlist.Add(new Func<int>(() => {return PlaySong_(trackListName, trackNumber);   }));
+    }
+    protected int PlaySong_(string trackListName, int trackNumber){
+        GetComponent<JukeBoxComponent>().PlaySong(trackListName, trackNumber);
+
+        return NextCmd;
     }
 
     // CreateObjectAtPosition - creates a given gameobject at position

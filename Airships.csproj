@@ -299,6 +299,7 @@
     <Compile Include="Assets\Scripts\Components\FPSComponent.cs" />
     <Compile Include="Assets\Scripts\Components\GunComponent.cs" />
     <Compile Include="Assets\Scripts\Components\GunHitEffects.cs" />
+    <Compile Include="Assets\Scripts\Components\JukeBoxComponent.cs" />
     <Compile Include="Assets\Scripts\Components\Pixelation.cs" />
     <Compile Include="Assets\Scripts\Components\PlayerPusherComponent.cs" />
     <Compile Include="Assets\Scripts\Components\PropellerComponent.cs" />
@@ -310,6 +311,7 @@
     <Compile Include="Assets\Scripts\Data\FontTextureData.cs" />
     <Compile Include="Assets\Scripts\Data\GunData.cs" />
     <Compile Include="Assets\Scripts\Data\SaveGameData.cs" />
+    <Compile Include="Assets\Scripts\Data\TrackListData.cs" />
     <Compile Include="Assets\Scripts\Effects\FadeToSkybox.cs" />
     <Compile Include="Assets\Scripts\Effects\GlobalFog.cs" />
     <Compile Include="Assets\Scripts\Effects\PostEffectsBase.cs" />

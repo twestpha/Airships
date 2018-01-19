@@ -63,6 +63,9 @@ public class LevelScript010 : LevelScriptBase {
 
         Print("[Up] and [Down] to pitch plane");
 
+        Delay(3.0f);
+        PlaySong("Master", 0);
+
         SetVarToAirspeed(player, "airspeed");
         WaitGreaterThan("airspeed", 85.0f);
 
@@ -152,6 +155,8 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.8f);
         Transmission(tower_openfire, true, useradio);
         Print("Destroy Hostile Aircraft");
+
+        PlaySong("Master", 1);
 
         SetVarToInterceptorKills("interceptorkills");
         WaitGreaterThanEqual("interceptorkills", 1);

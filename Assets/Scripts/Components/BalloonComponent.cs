@@ -22,6 +22,9 @@ public class BalloonComponent : MonoBehaviour {
         }
         else {
             transform.position -= new Vector3(0.0f, fallRate * Time.deltaTime, 0.0f);
+            if(transform.position.y < 0.0f){
+                Destroy(gameObject);
+            }
         }
 
         if(!alive && prevalive){
