@@ -3,7 +3,7 @@ guid: 2edfcb0568f19a24f9ffc5d2c2f3b1d5
 timeCreated: 1513464737
 licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: Cube
@@ -19,6 +19,21 @@ ModelImporter:
     100022: Sphere_001
     100024: Cylinder_001
     100026: Plane_001
+    100028: Cylinder_002
+    100030: Cylinder_003
+    100032: Cylinder_004
+    100034: Cylinder_005
+    100036: Cylinder_006
+    100038: Cylinder_007
+    100040: Plane_002
+    100042: Sphere_002
+    100044: Sphere_003
+    100046: Sphere_004
+    100048: Sphere_005
+    100050: Sphere_006
+    100052: Sphere_007
+    100054: Sphere_008
+    100056: Sphere_009
     400000: //RootNode
     400002: Cube
     400004: Cube_000
@@ -33,6 +48,21 @@ ModelImporter:
     400022: Sphere_001
     400024: Cylinder_001
     400026: Plane_001
+    400028: Cylinder_002
+    400030: Cylinder_003
+    400032: Cylinder_004
+    400034: Cylinder_005
+    400036: Cylinder_006
+    400038: Cylinder_007
+    400040: Plane_002
+    400042: Sphere_002
+    400044: Sphere_003
+    400046: Sphere_004
+    400048: Sphere_005
+    400050: Sphere_006
+    400052: Sphere_007
+    400054: Sphere_008
+    400056: Sphere_009
     2300000: Cube
     2300002: Cube_000
     2300004: Cube_001
@@ -46,6 +76,21 @@ ModelImporter:
     2300020: Sphere_001
     2300022: Cylinder_001
     2300024: Plane_001
+    2300026: Cylinder_002
+    2300028: Cylinder_003
+    2300030: Cylinder_004
+    2300032: Cylinder_005
+    2300034: Cylinder_006
+    2300036: Cylinder_007
+    2300038: Plane_002
+    2300040: Sphere_002
+    2300042: Sphere_003
+    2300044: Sphere_004
+    2300046: Sphere_005
+    2300048: Sphere_006
+    2300050: Sphere_007
+    2300052: Sphere_008
+    2300054: Sphere_009
     3300000: Cube
     3300002: Cube_000
     3300004: Cube_001
@@ -59,6 +104,21 @@ ModelImporter:
     3300020: Sphere_001
     3300022: Cylinder_001
     3300024: Plane_001
+    3300026: Cylinder_002
+    3300028: Cylinder_003
+    3300030: Cylinder_004
+    3300032: Cylinder_005
+    3300034: Cylinder_006
+    3300036: Cylinder_007
+    3300038: Plane_002
+    3300040: Sphere_002
+    3300042: Sphere_003
+    3300044: Sphere_004
+    3300046: Sphere_005
+    3300048: Sphere_006
+    3300050: Sphere_007
+    3300052: Sphere_008
+    3300054: Sphere_009
     4300000: Cylinder
     4300002: Cube
     4300004: Cube_000
@@ -72,12 +132,74 @@ ModelImporter:
     4300020: Sphere_001
     4300022: Plane_001
     4300024: Cylinder_001
+    4300026: Cylinder_007
+    4300028: Plane_002
+    4300030: Cylinder_006
+    4300032: Sphere_009
+    4300034: Sphere_008
+    4300036: Sphere_007
+    4300038: Sphere_006
+    4300040: Sphere_005
+    4300042: Cylinder_005
+    4300044: Cylinder_004
+    4300046: Sphere_004
+    4300048: Cylinder_003
+    4300050: Sphere_003
+    4300052: Sphere_002
+    4300054: Cylinder_002
     7400000: Default Take
     9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: d4343eb29817bc34ca272ba5c3223e95, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_001
+    second: {fileID: 2100000, guid: 57edf1c63190a954ca0427ac2d8b09f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_002
+    second: {fileID: 2100000, guid: d893fbb8ed0aeb340b983156ae467db4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_003
+    second: {fileID: 2100000, guid: 7522b70342690ba49984c3d1be4376fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_005
+    second: {fileID: 2100000, guid: ad4972064d5edfe409496e14da249761, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_006
+    second: {fileID: 2100000, guid: 992780585588615449fab64a4b308856, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_007
+    second: {fileID: 2100000, guid: 2016c0167ed49f64f8d3acd7058ff687, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_008
+    second: {fileID: 2100000, guid: 841b4ce917d0715429cc949c39e028d0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_009__cockpit_a_bulkhead_png
+    second: {fileID: 2100000, guid: a36d16b6a9660e944ae3494111e06f09, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -90,12 +212,14 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -103,13 +227,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -119,6 +248,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

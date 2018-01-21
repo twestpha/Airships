@@ -13,6 +13,7 @@ public class VehicleCameraComponent : MonoBehaviour {
 
     public Texture vehicleBase;
     public Texture firingHighlights;
+    public Texture firingUnderlights;
 
     public Texture briefingScreen;
 
@@ -31,6 +32,8 @@ public class VehicleCameraComponent : MonoBehaviour {
     public Timer screenPrintTimer;
 
     void Start() {
+        Cursor.visible = false;
+        
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
 
@@ -49,6 +52,10 @@ public class VehicleCameraComponent : MonoBehaviour {
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), briefingScreen);
         } else if(!deathMode) {
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
+
+            if(gunComponent.overlayActive){
+                GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), firingUnderlights);
+            }
 
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), vehicleBase);
 
