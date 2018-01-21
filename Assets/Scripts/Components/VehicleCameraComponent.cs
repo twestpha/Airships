@@ -15,34 +15,42 @@ public class VehicleCameraComponent : MonoBehaviour {
     public Texture firingHighlights;
     public Texture firingUnderlights;
 
+    public Texture[] compassTextures;
+    private float compassDegreesPerSection;
+    public Texture warninglightTexture;
+
     public Texture briefingScreen;
 
     public bool briefingMode = false;
     public bool deathMode = false;
 
-    public GameObject airplaneGunObject;
+    public GameObject airplaneObject;
     private AirplaneGunComponent gunComponent;
+    private AirplaneComponent airplaneComponent;
 
     // screen printing vars
     public const int MaxStringLength = 32;
     public const float FontWidth = 20.0f;
     public const float FontHeight = 30.0f;
     public FontTextureData font;
-    public Texture[] screenStringTextures;
+    private Texture[] screenStringTextures;
     public Timer screenPrintTimer;
 
     void Start() {
         Cursor.visible = false;
-        
+
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
 
         vehicleCamera = GetComponent<Camera>();
 
-        gunComponent = airplaneGunObject.GetComponent<AirplaneGunComponent>();
+        gunComponent = airplaneObject.GetComponent<AirplaneGunComponent>();
+        airplaneComponent = airplaneObject.GetComponent<AirplaneComponent>();
 
         screenStringTextures = new Texture[MaxStringLength];
         screenPrintTimer = new Timer(7.0f);
+
+        compassDegreesPerSection = 360.0f / compassTextures.Length;
     }
 
     void OnGUI() {
@@ -58,6 +66,11 @@ public class VehicleCameraComponent : MonoBehaviour {
             }
 
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), vehicleBase);
+
+            int index = (int)((360.0f - (airplaneComponent.heading - (0.5f * compassDegreesPerSection))) / compassDegreesPerSection);
+            Debug.Log(airplaneComponent.heading);
+            index = Mathf.Min(Mathf.Max(0, index), compassTextures.Length - 1);
+            GUI.DrawTexture(new Rect(155.0f * texelsToScreenX, 303.0f * texelsToScreenY, compassTextures[index].width * texelsToScreenX, compassTextures[index].height * texelsToScreenY), compassTextures[index]);
 
             if(gunComponent.overlayActive){
                 GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), firingHighlights);
