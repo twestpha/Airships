@@ -68,7 +68,6 @@ public class VehicleCameraComponent : MonoBehaviour {
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), vehicleBase);
 
             int index = (int)((360.0f - (airplaneComponent.heading - (0.5f * compassDegreesPerSection))) / compassDegreesPerSection);
-            Debug.Log(airplaneComponent.heading);
             index = Mathf.Min(Mathf.Max(0, index), compassTextures.Length - 1);
             GUI.DrawTexture(new Rect(155.0f * texelsToScreenX, 303.0f * texelsToScreenY, compassTextures[index].width * texelsToScreenX, compassTextures[index].height * texelsToScreenY), compassTextures[index]);
 
