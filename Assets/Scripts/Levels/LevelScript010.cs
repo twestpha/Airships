@@ -168,7 +168,8 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(captain_landing, wait, dontuseradio);
 
-        Print("Land the plane");
+        // Print("Land the plane");
+        Print("Thanks for Playing");
 
         // wait until landed
 

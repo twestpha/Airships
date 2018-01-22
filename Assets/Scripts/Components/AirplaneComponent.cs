@@ -93,10 +93,12 @@ public class AirplaneComponent : MonoBehaviour {
     void Start(){
         isPlayer = tag == "Player";
 
-        if(isPlayer){
+        if(engineSound){
             source.clip = engineSound;
             source.Play();
+        }
 
+        if(isPlayer){
             lineTimer = new Timer(5.0f);
             lineTimer.Start();
 
