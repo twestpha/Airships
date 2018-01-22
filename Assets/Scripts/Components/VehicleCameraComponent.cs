@@ -18,6 +18,7 @@ public class VehicleCameraComponent : MonoBehaviour {
     public Texture[] compassTextures;
     private float compassDegreesPerSection;
     public Texture warninglightTexture;
+    public Texture[] dialTextures;
 
     public Texture briefingScreen;
 
@@ -59,22 +60,39 @@ public class VehicleCameraComponent : MonoBehaviour {
         if(briefingMode){
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), briefingScreen);
         } else if(!deathMode) {
+            // Rendered Camera View
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), renderTexture);
 
+            // Firing underlay highlights
             if(gunComponent.overlayActive){
                 GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), firingUnderlights);
             }
 
+            // Main Vehicle Overlay
             GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), vehicleBase);
 
+            // Compass Drawing
             int index = (int)((360.0f - (airplaneComponent.heading - (0.5f * compassDegreesPerSection))) / compassDegreesPerSection);
             index = Mathf.Min(Mathf.Max(0, index), compassTextures.Length - 1);
             GUI.DrawTexture(new Rect(155.0f * texelsToScreenX, 303.0f * texelsToScreenY, compassTextures[index].width * texelsToScreenX, compassTextures[index].height * texelsToScreenY), compassTextures[index]);
 
+            // Airspeed Indicator Drawing
+            int hundreds = (int)(airplaneComponent.airspeed / 100.0f);
+            int tens = (int)((airplaneComponent.airspeed - (hundreds * 100.0f)) / 10.0f);
+            int ones = (int)(airplaneComponent.airspeed - (hundreds * 100.0f) - (tens * 10.0f));
+            int dec = (int)((airplaneComponent.airspeed - (int)(airplaneComponent.airspeed)) * 10.0f);
+
+            GUI.DrawTexture(new Rect(162.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[hundreds].width * texelsToScreenX, dialTextures[hundreds].height * texelsToScreenY), dialTextures[hundreds]);
+            GUI.DrawTexture(new Rect(176.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[tens].width * texelsToScreenX, dialTextures[tens].height * texelsToScreenY), dialTextures[tens]);
+            GUI.DrawTexture(new Rect(190.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[ones].width * texelsToScreenX, dialTextures[ones].height * texelsToScreenY), dialTextures[ones]);
+            GUI.DrawTexture(new Rect(208.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[dec].width * texelsToScreenX, dialTextures[dec].height * texelsToScreenY), dialTextures[dec]);
+
+            // Firing Highlights
             if(gunComponent.overlayActive){
                 GUI.DrawTexture(new Rect(0,0, Screen.width, Screen.height), firingHighlights);
             }
 
+            // Screen Text
             if(!screenPrintTimer.Finished()){
                 for(int i = 0; i < MaxStringLength; ++i){
                     if(screenStringTextures[i]){
