@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using UnityEditor;
+// using UnityEditor;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AudioLowPassFilter))]
@@ -160,8 +160,8 @@ public class LevelScriptBase : MonoBehaviour {
 
     void OnApplicationQuit(){
         // Commit save game data
-        EditorUtility.SetDirty(saveGameData);
-        AssetDatabase.SaveAssets();
+        // EditorUtility.SetDirty(saveGameData);
+        // AssetDatabase.SaveAssets();
     }
 
     protected virtual void Progression(){}

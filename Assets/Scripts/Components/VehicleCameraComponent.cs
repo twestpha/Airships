@@ -1,13 +1,10 @@
 using UnityEngine;
 using System.Collections;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class VehicleCameraComponent : MonoBehaviour {
 
     public float texelsToScreenX;
     public float texelsToScreenY;
-
-    private Camera vehicleCamera;
 
     public RenderTexture renderTexture;
 
@@ -42,8 +39,6 @@ public class VehicleCameraComponent : MonoBehaviour {
 
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;
-
-        vehicleCamera = GetComponent<Camera>();
 
         gunComponent = airplaneObject.GetComponent<AirplaneGunComponent>();
         airplaneComponent = airplaneObject.GetComponent<AirplaneComponent>();

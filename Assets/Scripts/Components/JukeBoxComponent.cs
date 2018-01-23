@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using UnityEditor;
 
 [RequireComponent(typeof(AudioSource))]
 public class JukeBoxComponent : MonoBehaviour {
