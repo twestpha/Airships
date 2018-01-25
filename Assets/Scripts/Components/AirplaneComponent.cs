@@ -222,8 +222,13 @@ public class AirplaneComponent : MonoBehaviour {
             velocity = transform.forward * speed;
         }
 
-        // Instruments
+        if(destroyed && !crashed){
+            velocity.y = -1000.0f * Time.deltaTime;
+        }
+
         transform.position += velocity * Time.deltaTime;
+
+        // Instruments
         airspeed = velocity.magnitude;
         altitude = transform.position.y;
         heading = transform.rotation.eulerAngles.y;

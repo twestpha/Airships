@@ -298,6 +298,7 @@
     <Compile Include="Assets\Scripts\Components\RotatableComponent.cs" />
     <Compile Include="Assets\Scripts\Components\SkyboxComponent.cs" />
     <Compile Include="Assets\Scripts\Components\SplashComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\TurretComponent.cs" />
     <Compile Include="Assets\Scripts\Components\VehicleCameraComponent.cs" />
     <Compile Include="Assets\Scripts\Data\AirplaneGunData.cs" />
     <Compile Include="Assets\Scripts\Data\FontTextureData.cs" />

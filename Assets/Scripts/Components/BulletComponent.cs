@@ -17,7 +17,7 @@ public class BulletComponent : MonoBehaviour {
     private const int DamagableLayer = 8;
     private const int GroundLayer = 10;
 
-    private const float DespawnRange = 800.0f;
+    public float DespawnRange = 800.0f;
 
     public AirplaneComponent firedFromAirplane;
 
@@ -39,9 +39,11 @@ public class BulletComponent : MonoBehaviour {
 
             DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
 
-            if(!damageable.hasTeam || damageable.airplane.team != firedFromAirplane.team){
+            // if(damageable && !damageable.hasTeam || damageable.airplane.team != firedFromAirplane.team){
+            if(damageable){
                 damageable.Damage(damage, armorBonus);
             }
+            // }
         } else if(other.gameObject.layer == WaterLayer && groundSplash){
             Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
         } else if(other.gameObject.layer == GroundLayer && waterSplash){
