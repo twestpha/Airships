@@ -61,6 +61,7 @@ public class AirplaneComponent : MonoBehaviour {
     public bool crashed = false;
     private Timer deathTimer;
     private Timer forceDownTimer;
+    private float previousHealth;
 
     public GameObject firePrefab;
     public GameObject firePrefabInstance;
@@ -81,8 +82,10 @@ public class AirplaneComponent : MonoBehaviour {
     public int enginesMax;
 
     [Header("Sound Effects")]
-    public AudioSource source;
+    public AudioSource engineSource;
     public AudioClip engineSound;
+    public AudioSource hitSource;
+    public AudioClip hitSound;
 
     // Temporary line-drawing vars so I can see the plane's flight path
     private Timer lineTimer;
@@ -95,8 +98,8 @@ public class AirplaneComponent : MonoBehaviour {
         isPlayer = tag == "Player";
 
         if(engineSound){
-            source.clip = engineSound;
-            source.Play();
+            engineSource.clip = engineSound;
+            engineSource.Play();
         }
 
         if(isPlayer){
@@ -136,7 +139,7 @@ public class AirplaneComponent : MonoBehaviour {
 
             crashed = true;
 
-            source.Stop();
+            engineSource.Stop();
 
             if(!isPlayer){
                 Destroy(gameObject);
@@ -250,14 +253,21 @@ public class AirplaneComponent : MonoBehaviour {
         transform.rotation *= Quaternion.Euler(eulerAngles);
 
         // throttle Sound
-        source.volume = 0.5f + (throttle / 2.0f);
-        source.pitch = 0.5f + (throttle / 2.0f);
+        engineSource.volume = 0.5f + (throttle / 2.0f);
+        engineSource.pitch = 0.5f + (throttle / 2.0f);
     }
 
     void ApplyDamage(){
         bool prevdestroyed = destroyed;
 
-        destroyed = GetComponent<DamageableComponent>().health <= 0.0f;
+        float currentHealth = GetComponent<DamageableComponent>().health;
+        destroyed = currentHealth <= 0.0f;
+
+        if(currentHealth < previousHealth && isPlayer){
+            hitSource.clip = hitSound;
+            hitSource.pitch = 0.95f + (Random.value * 0.1f);
+            hitSource.Play();
+        }
 
         if(!prevdestroyed && destroyed){
             firePrefabInstance = Instantiate(firePrefab);
@@ -286,6 +296,8 @@ public class AirplaneComponent : MonoBehaviour {
                 }
             }
         }
+
+        previousHealth = currentHealth;
     }
 
 }
