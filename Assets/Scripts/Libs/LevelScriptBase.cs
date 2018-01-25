@@ -164,6 +164,11 @@ public class LevelScriptBase : MonoBehaviour {
         // AssetDatabase.SaveAssets();
     }
 
+    public void StopProgression(){
+        finished = true;
+        radioAudioSource.Stop();
+    }
+
     protected virtual void Progression(){}
 
     // #########################################################################

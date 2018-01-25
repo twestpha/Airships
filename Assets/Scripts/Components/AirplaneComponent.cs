@@ -60,6 +60,7 @@ public class AirplaneComponent : MonoBehaviour {
     [Header("Destruction")]
     public bool crashed = false;
     private Timer deathTimer;
+    private Timer forceDownTimer;
 
     public GameObject firePrefab;
     public GameObject firePrefabInstance;
@@ -105,6 +106,8 @@ public class AirplaneComponent : MonoBehaviour {
             deathTimer = new Timer(10.0f);
         }
 
+        forceDownTimer = new Timer(5.0f);
+
         landingGearOut = true;
     }
 
@@ -133,12 +136,16 @@ public class AirplaneComponent : MonoBehaviour {
 
             crashed = true;
 
+            source.Stop();
+
             if(!isPlayer){
                 Destroy(gameObject);
             } else {
                 GameObject.FindWithTag("MainCamera").GetComponent<VehicleCameraComponent>().deathMode = true;
                 GameObject.FindWithTag("MainCamera").transform.rotation = Quaternion.Euler(70.0f, 0.0f, 0.0f);
                 deathTimer.Start();
+
+                GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>().StopProgression();
             }
         }
 
@@ -223,7 +230,7 @@ public class AirplaneComponent : MonoBehaviour {
         }
 
         if(destroyed && !crashed){
-            velocity.y = -1000.0f * Time.deltaTime;
+            velocity.y = -1000.0f * Time.deltaTime * forceDownTimer.Parameterized();
         }
 
         transform.position += velocity * Time.deltaTime;
@@ -260,6 +267,8 @@ public class AirplaneComponent : MonoBehaviour {
             aileronCurrent = -1.0f;
             elevatorCurrent = 0.5f;
             rudderCurrent = 0.5f;
+
+            forceDownTimer.Start();
 
             if(team == AirplaneTeam.Enemy){
                 LevelScriptBase levelscript = GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>();
