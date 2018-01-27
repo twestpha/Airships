@@ -9,6 +9,7 @@ public class DamageableComponent : MonoBehaviour {
     public const int DamagingLayer = 1 << 10;
 
     public float health;
+    public float startHealth;
     public bool armored;
 
     public Material destroyedMaterial;
@@ -20,6 +21,8 @@ public class DamageableComponent : MonoBehaviour {
 
         airplane = GetComponent<AirplaneComponent>();
         hasTeam = airplane != null;
+
+        startHealth = health;
     }
 
     void Update(){

@@ -14,8 +14,10 @@ public class VehicleCameraComponent : MonoBehaviour {
 
     public Texture[] compassTextures;
     private float compassDegreesPerSection;
-    public Texture warninglightTexture;
     public Texture[] dialTextures;
+    public Texture[] warninglightTextures;
+    private Texture[] currentWarningLightTextures;
+    private const int warningLightCount = 4;
 
     public Texture briefingScreen;
 
@@ -47,6 +49,11 @@ public class VehicleCameraComponent : MonoBehaviour {
         screenPrintTimer = new Timer(7.0f);
 
         compassDegreesPerSection = 360.0f / compassTextures.Length;
+
+        currentWarningLightTextures = new Texture[warningLightCount];
+        for(int i = 0; i < warningLightCount; ++i){
+            currentWarningLightTextures[i] = warninglightTextures[2];
+        }
     }
 
     void OnGUI() {
@@ -81,6 +88,38 @@ public class VehicleCameraComponent : MonoBehaviour {
             GUI.DrawTexture(new Rect(176.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[tens].width * texelsToScreenX, dialTextures[tens].height * texelsToScreenY), dialTextures[tens]);
             GUI.DrawTexture(new Rect(190.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[ones].width * texelsToScreenX, dialTextures[ones].height * texelsToScreenY), dialTextures[ones]);
             GUI.DrawTexture(new Rect(208.0f * texelsToScreenX, 275.0f * texelsToScreenY, dialTextures[dec].width * texelsToScreenX, dialTextures[dec].height * texelsToScreenY), dialTextures[dec]);
+
+            // Health Indicator Drawing
+            float currentHealth = airplaneComponent.GetComponent<DamageableComponent>().health;
+            float startHealth = airplaneComponent.GetComponent<DamageableComponent>().startHealth;
+            float healthPercentage = currentHealth / startHealth;
+            healthPercentage = Mathf.Clamp(healthPercentage, 0.0f, 1.0f);
+
+            int lightCount = (int)(healthPercentage * 11); // 12 slots, 0-11
+            Debug.Log("Lightcount: " + lightCount);
+            int basecount = lightCount / 4;
+            int incrementcount = lightCount - (basecount * 4);
+
+            Debug.Log("BaseCount: " + basecount);
+            Debug.Log("Increment Count: " + incrementcount);
+
+            for(int i = 0; i < warningLightCount; ++i){
+                int offset = 0;
+
+                if(incrementcount > 0 && basecount < 2){
+                    offset = 1;
+                    incrementcount--;
+                }
+
+                currentWarningLightTextures[i] = warninglightTextures[basecount + offset];
+            }
+
+            float warningLightWidth = currentWarningLightTextures[0].width * texelsToScreenX;
+            float warningLightHeight = currentWarningLightTextures[0].height * texelsToScreenY;
+            GUI.DrawTexture(new Rect(446.0f * texelsToScreenX, 290.0f * texelsToScreenY, warningLightWidth, warningLightHeight), currentWarningLightTextures[0]);
+            GUI.DrawTexture(new Rect(431.0f * texelsToScreenX, 308.0f * texelsToScreenY, warningLightWidth, warningLightHeight), currentWarningLightTextures[1]);
+            GUI.DrawTexture(new Rect(467.0f * texelsToScreenX, 308.0f * texelsToScreenY, warningLightWidth, warningLightHeight), currentWarningLightTextures[2]);
+            GUI.DrawTexture(new Rect(452.0f * texelsToScreenX, 318.0f * texelsToScreenY, warningLightWidth, warningLightHeight), currentWarningLightTextures[3]);
 
             // Firing Highlights
             if(gunComponent.overlayActive){
