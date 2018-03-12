@@ -21,14 +21,27 @@ public class BulletComponent : MonoBehaviour {
 
     public AirplaneComponent firedFromAirplane;
 
+    public GameObject despawnExplosion;
+
+    public bool randomMode;
+
     void Start(){
         startPoint = transform.position;
+
+        if(randomMode){
+            DespawnRange -= Random.value * 500.0f;
+        }
     }
 
     void Update(){
         transform.position += transform.forward * speed * Time.deltaTime;
 
         if((transform.position - startPoint).magnitude > DespawnRange){
+            if(despawnExplosion){
+                GameObject exp = GameObject.Instantiate(despawnExplosion);
+                exp.transform.position = transform.position;
+            }
+
             Destroy(gameObject);
         }
     }

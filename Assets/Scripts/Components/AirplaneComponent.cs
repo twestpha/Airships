@@ -263,7 +263,7 @@ public class AirplaneComponent : MonoBehaviour {
         float currentHealth = GetComponent<DamageableComponent>().health;
         destroyed = currentHealth <= 0.0f;
 
-        if(currentHealth < previousHealth && isPlayer){
+        if(currentHealth < previousHealth && isPlayer && currentHealth > 0.0f){
             hitSource.clip = hitSound;
             hitSource.pitch = 0.95f + (Random.value * 0.1f);
             hitSource.Play();

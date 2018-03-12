@@ -96,12 +96,8 @@ public class VehicleCameraComponent : MonoBehaviour {
             healthPercentage = Mathf.Clamp(healthPercentage, 0.0f, 1.0f);
 
             int lightCount = (int)(healthPercentage * 11); // 12 slots, 0-11
-            Debug.Log("Lightcount: " + lightCount);
             int basecount = lightCount / 4;
             int incrementcount = lightCount - (basecount * 4);
-
-            Debug.Log("BaseCount: " + basecount);
-            Debug.Log("Increment Count: " + incrementcount);
 
             for(int i = 0; i < warningLightCount; ++i){
                 int offset = 0;
