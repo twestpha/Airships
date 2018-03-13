@@ -168,11 +168,9 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.7f);
         Transmission(captain_landing, wait, dontuseradio);
 
-        // Print("Land the plane");
-        Print("Thanks for Playing");
+        Print("Mission Complete!");
+        // maybe play a sound?
 
-        // wait until landed
-
-        // LoadLevel("020_blitz");
+        LoadLevel("020_blitz");
     }
 }
