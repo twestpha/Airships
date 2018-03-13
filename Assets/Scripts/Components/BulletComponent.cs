@@ -24,6 +24,7 @@ public class BulletComponent : MonoBehaviour {
     public GameObject despawnExplosion;
 
     public bool randomMode;
+    public int skipCollisionFrames;
 
     void Start(){
         startPoint = transform.position;
@@ -44,25 +45,31 @@ public class BulletComponent : MonoBehaviour {
 
             Destroy(gameObject);
         }
+
+        if(skipCollisionFrames > 0){
+            skipCollisionFrames--;
+        }
     }
 
     void OnCollisionEnter(Collision other){
-        if(other.gameObject.layer == DamagableLayer){
-            // TODO add generic hit marker splash
+        if(skipCollisionFrames <= 0){
+            if(other.gameObject.layer == DamagableLayer){
+                // TODO add generic hit marker splash
 
-            DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
+                DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
 
-            // if(damageable && !damageable.hasTeam || damageable.airplane.team != firedFromAirplane.team){
-            if(damageable){
-                damageable.Damage(damage, armorBonus);
+                // if(damageable && !damageable.hasTeam || damageable.airplane.team != firedFromAirplane.team){
+                if(damageable){
+                    damageable.Damage(damage, armorBonus);
+                }
+                // }
+            } else if(other.gameObject.layer == WaterLayer && groundSplash){
+                Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
+            } else if(other.gameObject.layer == GroundLayer && waterSplash){
+                Object.Instantiate(waterSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
             }
-            // }
-        } else if(other.gameObject.layer == WaterLayer && groundSplash){
-            Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
-        } else if(other.gameObject.layer == GroundLayer && waterSplash){
-            Object.Instantiate(waterSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
-        }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

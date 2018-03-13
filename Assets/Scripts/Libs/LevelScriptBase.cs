@@ -53,6 +53,7 @@ public class LevelScriptBase : MonoBehaviour {
     [Header("Level Stats")]
     public int balloonkills = 0;
     public int interceptorkills = 0;
+    public int vehiclekills = 0;
     public int bomberkills = 0;
     public int bosskills = 0;
     public int deaths = 0;

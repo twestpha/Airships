@@ -19,6 +19,8 @@ public class TurretComponent : MonoBehaviour {
 
     private AudioSource source;
 
+    public bool leadingMode;
+
 	void Start(){
         player = GameObject.FindWithTag("Player");
 
@@ -32,6 +34,11 @@ public class TurretComponent : MonoBehaviour {
 
 	void Update(){
         Vector3 target = player.transform.position;
+
+        if(leadingMode){
+            target += player.GetComponent<AirplaneComponent>().velocity * 0.3f;
+        }
+
         Vector3 targetVector = target - transform.position;
 
         if(targetVector.magnitude < engageRange){
