@@ -35,13 +35,30 @@ public class LevelScript010 : LevelScriptBase {
     public GameObject balloonPrefab;
     public GameObject cargoPlanePrefab;
 
+    [Header("GameObject Prefabs")]
+    public Texture briefing1;
+    public Texture briefing2;
+    public Texture briefing3;
+
     protected override void Progression(){
 
         EnableAirplaneThrottle(player, false);
         EnableAirplaneGuns(player, false);
 
         EnableBriefingMode(maincamera, true);
+
+        SetBriefingModeTexture(maincamera, briefing1);
+        Delay(0.1f);
         WaitForMouseClick();
+
+        SetBriefingModeTexture(maincamera, briefing2);
+        Delay(0.1f);
+        WaitForMouseClick();
+
+        SetBriefingModeTexture(maincamera, briefing3);
+        Delay(0.1f);
+        WaitForMouseClick();
+
         EnableBriefingMode(maincamera, false);
 
         Delay(3.0f);

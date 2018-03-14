@@ -263,6 +263,16 @@ public class LevelScriptBase : MonoBehaviour {
         return NextCmd;
     }
 
+    // SetBriefingModeTexture - sets the gameobject's ui to briefing mode to texture
+    protected void SetBriefingModeTexture(GameObject gameobject, Texture texture){
+        functionlist.Add(new Func<int>(() => {return SetBriefingMode_Texture(gameobject, texture);    }));
+    }
+    protected int SetBriefingMode_Texture(GameObject gameobject, Texture texture){
+        Debug.Log("SETTING BRIEFING SCREEN");
+        gameobject.GetComponent<VehicleCameraComponent>().briefingScreen = texture;
+        return NextCmd;
+    }
+
     // LoadLevel - loads the next named level
     protected void LoadLevel(string levelname){
         functionlist.Add(new Func<int>(() => {return LoadLevel_(levelname);    }));
@@ -353,7 +363,7 @@ public class LevelScriptBase : MonoBehaviour {
         functionlist.Add(new Func<int>(() => {return WaitForMouseClick_();  }));
     }
     protected static int WaitForMouseClick_(){
-        return Input.GetMouseButton(0) ? NextCmd : ThisCmd;
+        return Input.GetMouseButtonDown(0) ? NextCmd : ThisCmd;
     }
 
     // Int methods

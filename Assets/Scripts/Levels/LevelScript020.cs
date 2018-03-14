@@ -80,7 +80,7 @@ public class LevelScript020 : LevelScriptBase {
 
         // wait until near flight group
 
-        
+
 
 
         // LoadLevel("020_blitz");
