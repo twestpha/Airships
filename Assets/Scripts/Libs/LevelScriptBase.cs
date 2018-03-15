@@ -47,6 +47,8 @@ public class LevelScriptBase : MonoBehaviour {
 
     public AudioSource radioAudioSource;
 
+    private bool transmissionPlaying;
+
     // #########################################################################
     // Level Stats to track
     // #########################################################################
@@ -199,13 +201,30 @@ public class LevelScriptBase : MonoBehaviour {
         functionlist.Add(new Func<int>(() => {return Transmission_(clip, wait, useradio);   }));
     }
     protected int Transmission_(AudioClip clip, bool wait, bool useradio){
-        if(!radioAudioSource.isPlaying && radioAudioSource.clip != clip){
+        if(!clip){
+            Debug.LogError("Clip is null");
+        }
+
+        if(wait){
+            if(!transmissionPlaying && !radioAudioSource.isPlaying){
+                radioAudioSource.bypassEffects = !useradio;
+                radioAudioSource.clip = clip;
+                radioAudioSource.Play();
+                transmissionPlaying = true;
+            }
+
+            if(!radioAudioSource.isPlaying){
+                transmissionPlaying = false;
+            }
+
+            return radioAudioSource.isPlaying ? ThisCmd : NextCmd;
+        } else {
             radioAudioSource.bypassEffects = !useradio;
             radioAudioSource.clip = clip;
             radioAudioSource.Play();
-        }
 
-        return wait && radioAudioSource.isPlaying ? ThisCmd : NextCmd;
+            return NextCmd;
+        }
     }
 
     // PlaySong - plays music
@@ -268,7 +287,6 @@ public class LevelScriptBase : MonoBehaviour {
         functionlist.Add(new Func<int>(() => {return SetBriefingMode_Texture(gameobject, texture);    }));
     }
     protected int SetBriefingMode_Texture(GameObject gameobject, Texture texture){
-        Debug.Log("SETTING BRIEFING SCREEN");
         gameobject.GetComponent<VehicleCameraComponent>().briefingScreen = texture;
         return NextCmd;
     }

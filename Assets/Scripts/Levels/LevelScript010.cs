@@ -35,10 +35,12 @@ public class LevelScript010 : LevelScriptBase {
     public GameObject balloonPrefab;
     public GameObject cargoPlanePrefab;
 
-    [Header("GameObject Prefabs")]
+    [Header("Briefing Data")]
+    public AudioClip slide_change;
     public Texture briefing1;
     public Texture briefing2;
     public Texture briefing3;
+    public Texture briefing4;
 
     protected override void Progression(){
 
@@ -48,14 +50,22 @@ public class LevelScript010 : LevelScriptBase {
         EnableBriefingMode(maincamera, true);
 
         SetBriefingModeTexture(maincamera, briefing1);
+        Transmission(slide_change, dontwait, dontuseradio);
         Delay(0.1f);
         WaitForMouseClick();
 
         SetBriefingModeTexture(maincamera, briefing2);
+        Transmission(slide_change, dontwait, dontuseradio);
         Delay(0.1f);
         WaitForMouseClick();
 
         SetBriefingModeTexture(maincamera, briefing3);
+        Transmission(slide_change, dontwait, dontuseradio);
+        Delay(0.1f);
+        WaitForMouseClick();
+
+        SetBriefingModeTexture(maincamera, briefing4);
+        Transmission(slide_change, dontwait, dontuseradio);
         Delay(0.1f);
         WaitForMouseClick();
 
