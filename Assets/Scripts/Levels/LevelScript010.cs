@@ -196,7 +196,8 @@ public class LevelScript010 : LevelScriptBase {
         Transmission(captain_landing, wait, dontuseradio);
 
         Print("Mission Complete!");
-        // maybe play a sound?
+
+        Delay(1.5f);
 
         LoadLevel("020_blitz");
     }
