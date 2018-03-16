@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
 [System.Serializable]
-public class SaveGameData : ScriptableObject {
+public class SaveGameData {
     public int saveversion;
     // Level Script
     public int levelScriptCommand;
@@ -15,11 +14,21 @@ public class SaveGameData : ScriptableObject {
     public int levelDeaths;
 
     // Player transform
-    public Vector3 playerPosition;
-    public Quaternion playerOrientation;
+    public float playerPositionX;
+    public float playerPositionY;
+    public float playerPositionZ;
+
+    public float playerOrientationW;
+    public float playerOrientationX;
+    public float playerOrientationY;
+    public float playerOrientationZ;
     // Player Airplane Component
     public bool playerThrottleEnabled;
-    public Vector3 playerVelocity;
+
+    public float playerVelocityX;
+    public float playerVelocityY;
+    public float playerVelocityZ;
+
     public float playerThrottle;
     // Player Airplane Gun Component
     public bool playerGunsEnabled;

@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
+using UnityEngine;
+using System.IO;
 using System;
-// using UnityEditor;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AudioLowPassFilter))]
 [RequireComponent(typeof(AudioHighPassFilter))]
 public class LevelScriptBase : MonoBehaviour {
 
-    public SaveGameData saveGameData;
+    private SaveGameData saveGameData;
     private const int saveversion = 1;
 
     protected List<Func<int>> functionlist;
@@ -64,6 +65,8 @@ public class LevelScriptBase : MonoBehaviour {
         player = GameObject.FindWithTag("Player");
         maincamera = GameObject.FindWithTag("MainCamera");
 
+        saveGameData = new SaveGameData();
+
         floatdict = new Dictionary<string, float>();
         intdict = new Dictionary<string, int>();
 
@@ -111,21 +114,43 @@ public class LevelScriptBase : MonoBehaviour {
         saveGameData.levelBosskills = bosskills;
         saveGameData.levelDeaths = deaths;
 
-        saveGameData.playerPosition = player.transform.position;
-        saveGameData.playerOrientation = player.transform.rotation;
+        saveGameData.playerPositionX = player.transform.position.x;
+        saveGameData.playerPositionY = player.transform.position.y;
+        saveGameData.playerPositionZ = player.transform.position.z;
+
+        saveGameData.playerOrientationW = player.transform.rotation.w;
+        saveGameData.playerOrientationX = player.transform.rotation.x;
+        saveGameData.playerOrientationY = player.transform.rotation.y;
+        saveGameData.playerOrientationZ = player.transform.rotation.z;
 
         AirplaneComponent playerAirplaneComponent = player.GetComponent<AirplaneComponent>();
         saveGameData.playerThrottleEnabled = playerAirplaneComponent.throttleEnabled;
-        saveGameData.playerVelocity = playerAirplaneComponent.velocity;
+
+        saveGameData.playerVelocityX = playerAirplaneComponent.velocity.x;
+        saveGameData.playerVelocityY = playerAirplaneComponent.velocity.y;
+        saveGameData.playerVelocityZ = playerAirplaneComponent.velocity.z;
+
         saveGameData.playerThrottle = playerAirplaneComponent.throttle;
 
         AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
         saveGameData.playerGunsEnabled = playerAirplaneGunComponent.gunsEnabled;
 
         saveGameData.playerBriefingMode = maincamera.GetComponent<VehicleCameraComponent>().briefingMode;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/save.gd");
+        bf.Serialize(file, saveGameData);
+        file.Close();
     }
 
     void LoadGame(){
+        if(File.Exists(Application.persistentDataPath + "/save.gd")) {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/save.gd", FileMode.Open);
+            saveGameData = bf.Deserialize(file) as SaveGameData;
+            file.Close();
+        }
+
         if(saveGameData.saveversion != saveversion){
             Print_("Load Failed");
             return;
@@ -145,12 +170,14 @@ public class LevelScriptBase : MonoBehaviour {
         bosskills = saveGameData.levelBosskills;
         deaths = saveGameData.levelDeaths;
 
-        player.transform.position = saveGameData.playerPosition;
-        player.transform.rotation = saveGameData.playerOrientation;
+        player.transform.position = new Vector3(saveGameData.playerPositionX, saveGameData.playerPositionY, saveGameData.playerPositionZ);
+        player.transform.rotation = new Quaternion(saveGameData.playerOrientationX, saveGameData.playerOrientationY, saveGameData.playerOrientationZ, saveGameData.playerOrientationW);
 
         AirplaneComponent playerAirplaneComponent = player.GetComponent<AirplaneComponent>();
         playerAirplaneComponent.throttleEnabled = saveGameData.playerThrottleEnabled;
-        playerAirplaneComponent.velocity = saveGameData.playerVelocity;
+
+        playerAirplaneComponent.velocity = new Vector3(saveGameData.playerVelocityX, saveGameData.playerVelocityY, saveGameData.playerVelocityZ);
+
         playerAirplaneComponent.throttle = saveGameData.playerThrottle;
 
         AirplaneGunComponent playerAirplaneGunComponent = player.GetComponent<AirplaneGunComponent>();
