@@ -38,6 +38,8 @@ public class VehicleCameraComponent : MonoBehaviour {
 
     void Start() {
         Cursor.visible = false;
+        // QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        // Application.targetFrameRate = 30;
 
         texelsToScreenX = (float) Screen.width / (float) renderTexture.width;
         texelsToScreenY = (float) Screen.height / (float) renderTexture.height;

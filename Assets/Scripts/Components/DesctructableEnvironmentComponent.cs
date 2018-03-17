@@ -21,7 +21,7 @@ public class DesctructableEnvironmentComponent : MonoBehaviour {
 	void Update(){
         bool prevdestroyed = destroyed;
 
-        destroyed = GetComponent<DamageableComponent>().health < 0;
+        destroyed = GetComponent<DamageableComponent>().health <= 0;
 
         if(!prevdestroyed && destroyed){
             timer.Start();

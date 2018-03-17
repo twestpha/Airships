@@ -10,6 +10,7 @@ public class BulletComponent : MonoBehaviour {
     public float damage;
     public float armorBonus;
 
+    public GameObject hitSplash;
     public GameObject groundSplash;
     public GameObject waterSplash;
 
@@ -55,12 +56,16 @@ public class BulletComponent : MonoBehaviour {
     void OnCollisionEnter(Collision other){
         if(skipCollisionFrames <= 0){
             if(other.gameObject.layer == DamagableLayer){
-                // TODO add generic hit marker splash
 
                 DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
 
-                if(damageable.damageableTeam != bulletTeam){
+                if(damageable.damageableTeam != bulletTeam && damageable.health > 0){
                     damageable.Damage(damage, armorBonus);
+
+                    if(hitSplash){
+                        Object.Instantiate(hitSplash, other.contacts[0].point, new Quaternion());
+                    }
+
                     Destroy(gameObject);
                 }
             } else if(other.gameObject.layer == GroundLayer && groundSplash){

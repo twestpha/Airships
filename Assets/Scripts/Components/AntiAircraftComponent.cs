@@ -14,7 +14,7 @@ public class AntiAircraftComponent : MonoBehaviour {
 	}
 
 	void Update(){
-        if(damageable.health < 0){
+        if(damageable.health <= 0){
             if(burningPrefab){
                 Instantiate(burningPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
             }
