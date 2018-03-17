@@ -25,6 +25,8 @@ public class BulletComponent : MonoBehaviour {
 
     public Team bulletTeam;
 
+    public int skipCollisionFrames;
+
     void Start(){
         startPoint = transform.position;
 
@@ -44,25 +46,30 @@ public class BulletComponent : MonoBehaviour {
 
             Destroy(gameObject);
         }
+
+        if(skipCollisionFrames > 0){
+            skipCollisionFrames--;
+        }
     }
 
     void OnCollisionEnter(Collision other){
-        if(other.gameObject.layer == DamagableLayer){
-            // TODO add generic hit marker splash
+        if(skipCollisionFrames <= 0){
+            if(other.gameObject.layer == DamagableLayer){
+                // TODO add generic hit marker splash
 
-            DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
+                DamageableComponent damageable = other.gameObject.GetComponent<DamageableComponent>();
 
-            if(damageable.damageableTeam != bulletTeam){
-                damageable.Damage(damage, armorBonus);
+                if(damageable.damageableTeam != bulletTeam){
+                    damageable.Damage(damage, armorBonus);
+                    Destroy(gameObject);
+                }
+            } else if(other.gameObject.layer == GroundLayer && groundSplash){
+                Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
+                Destroy(gameObject);
+            } else if(other.gameObject.layer == WaterLayer && waterSplash){
+                Object.Instantiate(waterSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
                 Destroy(gameObject);
             }
-            // }
-        } else if(other.gameObject.layer == WaterLayer && groundSplash){
-            Object.Instantiate(groundSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
-            Destroy(gameObject);
-        } else if(other.gameObject.layer == GroundLayer && waterSplash){
-            Object.Instantiate(waterSplash, other.contacts[0].point + new Vector3(0.0f, 6.0f, 0.0f), new Quaternion());
-            Destroy(gameObject);
         }
     }
 }

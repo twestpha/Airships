@@ -127,6 +127,10 @@ public class AirplaneComponent : MonoBehaviour {
             }
 
             ApplyDamage();
+        } else {
+            aileronCurrent = -1.0f * forceDownTimer.Parameterized();
+            elevatorCurrent = 0.5f * forceDownTimer.Parameterized();
+            rudderCurrent = 0.5f * forceDownTimer.Parameterized();
         }
 
         if(transform.position.y < 0.0f && !crashed){
@@ -273,10 +277,6 @@ public class AirplaneComponent : MonoBehaviour {
             firePrefabInstance = Instantiate(firePrefab);
             firePrefabInstance.transform.parent = transform;
             firePrefabInstance.transform.localPosition = firePosition;
-
-            aileronCurrent = -1.0f;
-            elevatorCurrent = 0.5f;
-            rudderCurrent = 0.5f;
 
             forceDownTimer.Start();
 
