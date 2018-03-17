@@ -15,8 +15,12 @@ public class AntiAircraftComponent : MonoBehaviour {
 
 	void Update(){
         if(damageable.health < 0){
-            Instantiate(burningPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
-            Instantiate(scrapsPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
+            if(burningPrefab){
+                Instantiate(burningPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
+            }
+            if(scrapsPrefab){
+                Instantiate(scrapsPrefab, transform.position, Quaternion.Euler(-90.0f, 0, 0));
+            }
 
             GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>().vehiclekills++;
 

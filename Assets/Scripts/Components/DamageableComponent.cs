@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+public enum Team {
+    Allied,
+    Enemy,
+}
+
 public class DamageableComponent : MonoBehaviour {
 
     public const int DamageableLayer = 1 << 8;
@@ -13,15 +18,10 @@ public class DamageableComponent : MonoBehaviour {
     public bool armored;
 
     public Material destroyedMaterial;
-    public bool hasTeam;
-    public AirplaneComponent airplane;
+    public Team damageableTeam;
 
     void Start(){
         Assert.IsTrue(gameObject.layer == 8, "Damageable component on gameobject " + gameObject + " is layer " + gameObject.layer + " when it should be " + DamageableLayer);
-
-        airplane = GetComponent<AirplaneComponent>();
-        hasTeam = airplane != null;
-
         startHealth = health;
     }
 

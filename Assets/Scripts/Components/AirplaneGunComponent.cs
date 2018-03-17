@@ -53,9 +53,6 @@ public class AirplaneGunComponent : MonoBehaviour {
                 float airspeed = airplane.airspeed;
                 bullet1.GetComponent<BulletComponent>().speed += airspeed;
                 bullet2.GetComponent<BulletComponent>().speed += airspeed;
-
-                bullet1.GetComponent<BulletComponent>().firedFromAirplane = airplane;
-                bullet2.GetComponent<BulletComponent>().firedFromAirplane = airplane;
             } else {
 
             }
