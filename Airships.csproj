@@ -294,6 +294,7 @@
     <Compile Include="Assets\Scripts\Components\BillboardComponent.cs" />
     <Compile Include="Assets\Scripts\Components\BulletComponent.cs" />
     <Compile Include="Assets\Scripts\Components\DamageableComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\DesctructableEnvironmentComponent.cs" />
     <Compile Include="Assets\Scripts\Components\GunComponent.cs" />
     <Compile Include="Assets\Scripts\Components\GunHitEffects.cs" />
     <Compile Include="Assets\Scripts\Components\JukeBoxComponent.cs" />

@@ -59,6 +59,7 @@ public class LevelScriptBase : MonoBehaviour {
     public int vehiclekills = 0;
     public int bomberkills = 0;
     public int bosskills = 0;
+    public int environmentkills = 0;
     public int deaths = 0;
 
     void Start(){
