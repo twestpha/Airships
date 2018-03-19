@@ -160,6 +160,14 @@ public class AirplaneComponent : MonoBehaviour {
             ApplyVelocity();
         } else if(isPlayer) {
             HandleCrashCamera();
+
+            if(deathTimer.Finished()){
+                GameObject.FindWithTag("Level Script").GetComponent<LevelScriptBase>().LoadLastSave_();
+                // GameObject.FindWithTag("MainCamera").transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+                // GameObject.FindWithTag("MainCamera").transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                crashed = false;
+                destroyed = false;
+            }
         }
     }
 

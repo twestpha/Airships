@@ -116,6 +116,8 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.6f);
         Transmission(captain_headsouth, wait, dontuseradio);
 
+        SaveGame("010_flight_check");
+
         CreateObjectAtPosition(balloonPrefab, new Vector3(-834.0f, 0.0f, 162.0f));
         Delay(0.6f);
         CreateObjectAtPosition(balloonPrefab, new Vector3(-721.0f, 0.0f, 9.0f));
@@ -159,6 +161,8 @@ public class LevelScript010 : LevelScriptBase {
         WaitGreaterThanEqual("balloonkills", 6);
         Print("Balloons Deflated 6/6");
 
+        SaveGame("011_balloons_destroyed");
+
         Delay(1.3f);
         Transmission(captain_ballons, wait, dontuseradio);
         Delay(0.8f);
@@ -198,6 +202,8 @@ public class LevelScript010 : LevelScriptBase {
         Print("Mission Complete!");
 
         Delay(1.5f);
+
+        // TODO fade to black?
 
         LoadLevel("020_blitz");
     }

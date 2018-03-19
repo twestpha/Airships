@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class SaveGameData {
     public int saveversion;
+    public string savelevel;
+
     // Level Script
     public int levelScriptCommand;
     public int levelBalloonkills;

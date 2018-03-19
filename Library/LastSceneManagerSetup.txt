@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Game/020_blitz.unity
+- path: Assets/Scenes/Game/010_tutorial.unity
   isLoaded: 1
   isActive: 1

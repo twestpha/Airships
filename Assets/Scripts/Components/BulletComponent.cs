@@ -63,7 +63,7 @@ public class BulletComponent : MonoBehaviour {
                     damageable.Damage(damage, armorBonus);
 
                     if(hitSplash){
-                        Object.Instantiate(hitSplash, other.contacts[0].point, new Quaternion());
+                        Object.Instantiate(hitSplash, transform.position, new Quaternion());
                     }
 
                     Destroy(gameObject);

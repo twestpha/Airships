@@ -12,7 +12,8 @@ using System;
 public class LevelScriptBase : MonoBehaviour {
 
     private SaveGameData saveGameData;
-    private const int saveversion = 1;
+    private const int saveversion = 2;
+    private string lastsave;
 
     protected List<Func<int>> functionlist;
 
@@ -97,15 +98,13 @@ public class LevelScriptBase : MonoBehaviour {
 
         // Debug save/load testing
         if(Input.GetKeyDown(KeyCode.F5)){
-            SaveGame();
+            SaveGame_("quicksave");
         } else if(Input.GetKeyDown(KeyCode.F6)){
-            LoadGame();
+            LoadLastSave_();
         }
     }
 
-    void SaveGame(){
-        Print_("Game Saved");
-
+    protected int SaveGame_(string name){
         saveGameData.saveversion = saveversion;
 
         saveGameData.levelScriptCommand = command;
@@ -138,31 +137,47 @@ public class LevelScriptBase : MonoBehaviour {
 
         saveGameData.playerBriefingMode = maincamera.GetComponent<VehicleCameraComponent>().briefingMode;
 
+        saveGameData.savelevel = gameObject.scene.name;
+
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/save.gd");
+        FileStream file = File.Create(Application.persistentDataPath + "/" + name + ".gd");
         bf.Serialize(file, saveGameData);
         file.Close();
+
+        lastsave = name;
+
+        Debug.Log("Game Saved");
+
+        return NextCmd;
     }
 
-    void LoadGame(){
-        if(File.Exists(Application.persistentDataPath + "/save.gd")) {
+    public void LoadLastSave_(){
+        LoadGame_(lastsave);
+    }
+
+    public void LoadGame_(string name){
+        if(File.Exists(Application.persistentDataPath + "/" + name + ".gd")) {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/save.gd", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + name + ".gd", FileMode.Open);
             saveGameData = bf.Deserialize(file) as SaveGameData;
             file.Close();
-        }
-
-        if(saveGameData.saveversion != saveversion){
-            Print_("Load Failed");
+        } else {
+            Debug.LogError("File " + Application.persistentDataPath + "/" + name + ".gd" + " does not exist. Load failed.");
             return;
         }
 
-        Print_("Game Loaded");
+        if(saveGameData.saveversion != saveversion){
+            Debug.LogError("Save file version " + saveGameData.saveversion + " does not match expected version " + saveversion + ". Load failed.");
+            return;
+        }
 
         // stomp currently playing audio
         if(radioAudioSource.isPlaying){
             radioAudioSource.Stop();
         }
+
+        LoadLevel_(saveGameData.savelevel);
+        // this will reset self's thingy...
 
         command = saveGameData.levelScriptCommand;
         balloonkills = saveGameData.levelBalloonkills;
@@ -187,6 +202,8 @@ public class LevelScriptBase : MonoBehaviour {
         VehicleCameraComponent playerCamera = maincamera.GetComponent<VehicleCameraComponent>();
         playerCamera.briefingMode = saveGameData.playerBriefingMode;
         playerCamera.deathMode = false;
+
+        Debug.Log("Game Loaded");
     }
 
     void OnApplicationQuit(){
@@ -326,6 +343,11 @@ public class LevelScriptBase : MonoBehaviour {
     protected int LoadLevel_(string levelname){
         SceneManager.LoadScene(levelname);
         return NextCmd;
+    }
+
+    // SaveGame - saves the current state of the game
+    protected void SaveGame(string name){
+        functionlist.Add(new Func<int>(() => {return SaveGame_(name);    }));
     }
 
     // #########################################################################
