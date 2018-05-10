@@ -20,10 +20,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 987
-  m_MinSize: {x: 681, y: 321}
-  m_MaxSize: {x: 12006, y: 8021}
+  m_MinSize: {x: 683, y: 342}
+  m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
-  controlID: 2231
+  controlID: 1685
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -121,10 +121,10 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 987
-  m_MinSize: {x: 404, y: 321}
-  m_MaxSize: {x: 8004, y: 8021}
+  m_MinSize: {x: 406, y: 342}
+  m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
-  controlID: 2232
+  controlID: 1686
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,10 +145,10 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 712
-  m_MinSize: {x: 404, y: 221}
-  m_MaxSize: {x: 8004, y: 4021}
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 2195
+  controlID: 1648
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,8 +167,8 @@ MonoBehaviour:
     y: 0
     width: 387
     height: 712
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -205,7 +205,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: aaeeffff9efbffff00000000
+    m_ExpandedIDs: 06c6ffff84fbffff00000000f4bc0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -224,7 +224,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
   m_ExpandedScenes:
-  - 030_rails
+  - 010_tutorial
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -282,14 +282,14 @@ MonoBehaviour:
     height: 691
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 1291.5418011046604
+  lastFramingTime: 730.8115718822113
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1411.1318, y: -10.005249, z: 1793.5177}
+    m_Target: {x: 0.24143219, y: 34.126755, z: 30.444183}
     speed: 2
-    m_Value: {x: 1411.1318, y: -10.005249, z: 1793.5177}
+    m_Value: {x: 0.24143219, y: 34.126755, z: 30.444183}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -313,13 +313,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.055857543, y: 0.65145886, z: -0.048199113, w: 0.7550883}
+    m_Target: {x: -0.13800296, y: -0.31015253, z: 0.04556264, w: -0.9395169}
     speed: 2
-    m_Value: {x: 0.055857535, y: 0.6514588, z: -0.048199106, w: 0.7550882}
+    m_Value: {x: -0.13800296, y: -0.31015253, z: 0.04556264, w: -0.9395169}
   m_Size:
-    m_Target: 1121.9504
+    m_Target: 421.564
     speed: 2
-    m_Value: 1121.9504
+    m_Value: 421.564
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -396,19 +396,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Textures/Test Textures/Materials
+    - Assets/Prefabs/Vehicles/Airplanes
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Textures/Test Textures/Materials
+  - Assets/Prefabs/Vehicles/Airplanes
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\Trevor\Code\Airships
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 439}
-    m_SelectedIDs: d0320000
-    m_LastClickedID: 13008
-    m_ExpandedIDs: 00000000ca2700000a2800001028000038290000ac290000102b00003a320000683400006a340000d8340000e2340000563c00003440000036400000384000003a400000ffffff7f
+    scrollPos: {x: 0, y: 99}
+    m_SelectedIDs: a2390000
+    m_LastClickedID: 14754
+    m_ExpandedIDs: 00000000cc2700000c280000122800003a290000ae290000122b0000cc2e0000323000003c3200006a3400006c340000da340000e4340000583c00006a4c00006c4c00006e4c0000704c0000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -436,7 +436,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ca2700000a2800001028000038290000ac290000102b00003a320000683400006a340000d8340000e2340000563c00003440000036400000384000003a400000ffffff7f
+    m_ExpandedIDs: 00000000cc2700000c280000122800003a290000ae290000122b0000cc2e0000323000003c3200006a3400006c340000da340000e4340000583c00006a4c00006c4c00006e4c0000704c0000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -488,7 +488,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 60}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 96
   m_DirectoriesAreaWidth: 194
 --- !u!114 &11

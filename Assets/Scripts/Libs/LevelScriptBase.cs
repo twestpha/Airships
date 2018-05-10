@@ -14,6 +14,7 @@ public class LevelScriptBase : MonoBehaviour {
     private SaveGameData saveGameData;
     private const int saveversion = 2;
     private string lastsave;
+    private string lastlevel;
 
     protected List<Func<int>> functionlist;
 
@@ -145,6 +146,7 @@ public class LevelScriptBase : MonoBehaviour {
         file.Close();
 
         lastsave = name;
+        lastlevel = gameObject.scene.name;
 
         Debug.Log("Game Saved");
 
@@ -176,8 +178,12 @@ public class LevelScriptBase : MonoBehaviour {
             radioAudioSource.Stop();
         }
 
-        LoadLevel_(saveGameData.savelevel);
-        // this will reset self's thingy...
+        if((saveGameData.savelevel != gameObject.scene.name){
+            LoadLevel_(saveGameData.savelevel, LoadSceneMode.Additive);
+            // Message them to load this saveload
+            // unload this level
+            // return
+        }
 
         command = saveGameData.levelScriptCommand;
         balloonkills = saveGameData.levelBalloonkills;
@@ -338,10 +344,13 @@ public class LevelScriptBase : MonoBehaviour {
 
     // LoadLevel - loads the next named level
     protected void LoadLevel(string levelname){
-        functionlist.Add(new Func<int>(() => {return LoadLevel_(levelname);    }));
+        functionlist.Add(new Func<int>(() => {return LoadLevel_(levelname, LoadSceneMode.Single);    }));
     }
-    protected int LoadLevel_(string levelname){
-        SceneManager.LoadScene(levelname);
+    protected void LoadLevel(string levelname, bool additive){
+        functionlist.Add(new Func<int>(() => {return LoadLevel_(levelname, additive ? LoadSceneMode.Additive : LoadSceneMode.Single);    }));
+    }
+    protected int LoadLevel_(string levelname, LoadSceneMode mode){
+        SceneManager.LoadScene(levelname, mode);
         return NextCmd;
     }
 
