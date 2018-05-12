@@ -299,6 +299,7 @@
     <Compile Include="Assets\Scripts\Components\GunHitEffects.cs" />
     <Compile Include="Assets\Scripts\Components\JukeBoxComponent.cs" />
     <Compile Include="Assets\Scripts\Components\PlayerPusherComponent.cs" />
+    <Compile Include="Assets\Scripts\Components\PlayerVolumeComponent.cs" />
     <Compile Include="Assets\Scripts\Components\PropellerComponent.cs" />
     <Compile Include="Assets\Scripts\Components\RotatableComponent.cs" />
     <Compile Include="Assets\Scripts\Components\SkyboxComponent.cs" />

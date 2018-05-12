@@ -80,6 +80,8 @@ public class LevelScript020 : LevelScriptBase {
         Transmission(tower_goodluck, wait, useradio);
 
         // wait until near flight group
+        SetVarToPlayerInVolume(Actor("RendezvousVolume"), "playerreachedvolume");
+        WaitGreaterThan("playerreachedvolume", 0);
 
         Delay(0.5f);
         Transmission(angus_request, wait, useradio);

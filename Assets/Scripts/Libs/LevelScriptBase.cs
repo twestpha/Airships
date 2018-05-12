@@ -178,7 +178,7 @@ public class LevelScriptBase : MonoBehaviour {
             radioAudioSource.Stop();
         }
 
-        if((saveGameData.savelevel != gameObject.scene.name){
+        if(saveGameData.savelevel != gameObject.scene.name){
             LoadLevel_(saveGameData.savelevel, LoadSceneMode.Additive);
             // Message them to load this saveload
             // unload this level
@@ -221,6 +221,10 @@ public class LevelScriptBase : MonoBehaviour {
     public void StopProgression(){
         finished = true;
         radioAudioSource.Stop();
+    }
+
+    protected GameObject Actor(string name){
+        return GameObject.Find(name);
     }
 
     protected virtual void Progression(){}
@@ -407,6 +411,14 @@ public class LevelScriptBase : MonoBehaviour {
     }
     protected int SetVarToHeading_(GameObject gameobject, string varname){
         floatdict[varname] = gameobject.GetComponent<AirplaneComponent>().heading;
+        return NextCmd;
+    }
+
+    protected void SetVarToPlayerInVolume(GameObject gameobject, string varname){
+        functionlist.Add(new Func<int>(() => {return SetVarToPlayerInVolume_(gameobject, varname);    }));
+    }
+    protected int SetVarToPlayerInVolume_(GameObject gameobject, string varname){
+        intdict[varname] = gameobject.GetComponent<PlayerVolumeComponent>().playerInVolume ? 1 : 0;
         return NextCmd;
     }
 
