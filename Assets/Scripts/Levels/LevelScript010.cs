@@ -44,6 +44,8 @@ public class LevelScript010 : LevelScriptBase {
 
     protected override void Progression(){
 
+        SaveGame("010_game_start");
+
         EnableAirplaneThrottle(player, false);
         EnableAirplaneGuns(player, false);
 
@@ -116,7 +118,7 @@ public class LevelScript010 : LevelScriptBase {
         Delay(0.6f);
         Transmission(captain_headsouth, wait, dontuseradio);
 
-        SaveGame("010_flight_check");
+        SaveGame("011_flight_check");
 
         CreateObjectAtPosition(balloonPrefab, new Vector3(-834.0f, 0.0f, 162.0f));
         Delay(0.6f);

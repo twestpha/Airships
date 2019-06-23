@@ -266,6 +266,7 @@ public class LevelScriptBase : MonoBehaviour {
                 radioAudioSource.clip = clip;
                 radioAudioSource.Play();
                 transmissionPlaying = true;
+                Debug.Log("[Dialogue] " + clip);
             }
 
             if(!radioAudioSource.isPlaying){
@@ -277,6 +278,7 @@ public class LevelScriptBase : MonoBehaviour {
             radioAudioSource.bypassEffects = !useradio;
             radioAudioSource.clip = clip;
             radioAudioSource.Play();
+            Debug.Log("[Dialogue] " + clip);
 
             return NextCmd;
         }

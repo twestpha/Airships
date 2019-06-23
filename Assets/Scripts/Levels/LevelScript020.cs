@@ -61,12 +61,15 @@ public class LevelScript020 : LevelScriptBase {
     public GameObject cargoPlanePrefab;
 
     protected override void Progression(){
+
         EnableAirplaneThrottle(player, false);
         EnableAirplaneGuns(player, false);
 
         EnableBriefingMode(maincamera, true);
         WaitForMouseClick();
         EnableBriefingMode(maincamera, false);
+
+        SaveGame("020_game_start");
 
         Delay(1.0f);
         Transmission(tower_joke, wait, useradio);
